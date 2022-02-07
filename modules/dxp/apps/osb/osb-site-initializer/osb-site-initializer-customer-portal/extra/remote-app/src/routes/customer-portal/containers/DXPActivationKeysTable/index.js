@@ -160,7 +160,10 @@ const DXPActivationKeysTable = () => {
 
 			<div className="mt-4 py-2">
 				<DXPActivationKeysTableHeader
+					activationKeys={activationKeysFiltered}
+					licenseKeyDownloadURL={licenseKeyDownloadURL}
 					selectedKeys={activationKeysChecked}
+					sessionId={sessionId}
 				/>
 			</div>
 
