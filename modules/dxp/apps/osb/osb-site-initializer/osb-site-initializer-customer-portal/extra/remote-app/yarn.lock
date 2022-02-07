@@ -1096,6 +1096,15 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@clayui/alert@^3.40.0":
+  version "3.40.0"
+  resolved "https://registry.yarnpkg.com/@clayui/alert/-/alert-3.40.0.tgz#de7d721754973904b5859d867439788e22ba8aab"
+  integrity sha512-UJKRvL4NBc66gknQ9LlBO4eP825xIWSEM8kFYdq0GSZ2g7vGbr0curQd0s9nhJS91tjWm/S5Ct6J7oFYNqnjbA==
+  dependencies:
+    "@clayui/icon" "^3.40.0"
+    "@clayui/layout" "^3.40.0"
+    classnames "^2.2.6"
+
 "@clayui/button@^3.40.0":
   version "3.40.0"
   resolved "https://registry.yarnpkg.com/@clayui/button/-/button-3.40.0.tgz#4a25d8edf820c1d8c3f0a0ea6fe2e6a2998b0e8b"
@@ -1199,6 +1208,13 @@
   dependencies:
     classnames "^2.2.6"
 
+"@clayui/link@^3.45.0":
+  version "3.45.0"
+  resolved "https://registry.yarnpkg.com/@clayui/link/-/link-3.45.0.tgz#d3456c29e6e42c5cfa50a55b01042f6c69475668"
+  integrity sha512-awKFYpdyELRs1Z87Z38v1VliZPp7/NsOfNiTVZ08xMxd4D7Cx70Z6ImLe88TcZ67pYUa6BE4RqVI45WUHFaBcg==
+  dependencies:
+    classnames "^2.2.6"
+
 "@clayui/loading-indicator@^3.40.0":
   version "3.40.0"
   resolved "https://registry.yarnpkg.com/@clayui/loading-indicator/-/loading-indicator-3.40.0.tgz#0c39745a3f72bbab31344ef17f6590dcd1052471"
@@ -1259,12 +1275,32 @@
     classnames "^2.2.6"
     dom-align "^1.10.2"
 
+"@clayui/shared@^3.45.0":
+  version "3.45.0"
+  resolved "https://registry.yarnpkg.com/@clayui/shared/-/shared-3.45.0.tgz#f8b2a3c01cc1e8715aca711bc14a2e4c9290f517"
+  integrity sha512-LIsdCubYbNwgxxIj9U0su1y8xyOWrABwXl1jtRAVB4l8AfIzhun16nTctAikwlj9WprERwVugfn9lLeJK991JQ==
+  dependencies:
+    "@clayui/button" "^3.40.0"
+    "@clayui/link" "^3.45.0"
+    "@clayui/provider" "^3.40.0"
+    classnames "^2.2.6"
+    dom-align "^1.10.2"
+
 "@clayui/sticker@^3.40.0":
   version "3.40.0"
   resolved "https://registry.yarnpkg.com/@clayui/sticker/-/sticker-3.40.0.tgz#a414d6e7972ecb2b66438bbddbaf0bd805c1097a"
   integrity sha512-hySlCXcdIwo+sqzfWzujTOoZJtyH8biqu+BigVa75fwtfUjOKHLf+RrNEwSGjAy4swRNCwIBipwuoMQ6PhMTqQ==
   dependencies:
     classnames "^2.2.6"
+
+"@clayui/tooltip@^3.40.0":
+  version "3.45.0"
+  resolved "https://registry.yarnpkg.com/@clayui/tooltip/-/tooltip-3.45.0.tgz#25db9ee07e40c3ecf8841ba1b272c944a6bb625f"
+  integrity sha512-NZqRYNk1x0UjIGD4+4W9CKWheLYQiFp444pQr04cCa+DTN9Qx7VP1IgFCLt1364+Gp9Hxe3iXK1Ig1jmOrsVHw==
+  dependencies:
+    "@clayui/shared" "^3.45.0"
+    classnames "^2.2.6"
+    warning "^4.0.3"
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
