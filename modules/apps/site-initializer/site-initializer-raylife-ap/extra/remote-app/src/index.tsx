@@ -24,6 +24,7 @@ import Claims from './routes/claims/pages/Claims';
 import RecentApplications from './routes/dashboard/pages/RecentApplications';
 import Policies from './routes/policies/pages/Policies';
 import Reports from './routes/reports/pages/Reports';
+import Test from './routes/test/pages/Test';
 
 type Props = {
 	route: any;
@@ -62,7 +63,7 @@ const DirectToCustomer: React.FC<Props> = ({route}) => {
 		);
 	}
 
-	return <></>;
+	return <Test />;
 };
 
 class WebComponent extends HTMLElement {
