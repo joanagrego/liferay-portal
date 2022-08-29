@@ -58,7 +58,7 @@ export function CreateAnAccount() {
 	}, [confirmPassword, email, password]);
 
 	const onCreateAccount = () => {
-		if (isMatchingAllRules) {
+		if (isMatchingAllRules()) {
 			setLoading(true);
 
 			SendAccountRequest(email, password, captcha)
