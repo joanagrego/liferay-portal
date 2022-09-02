@@ -32,7 +32,6 @@ import {
 import {dataColumn} from './DataProductPerfomance';
 import {
 	BarChartPerformanceTypes,
-	DataChart,
 	MonthProperties,
 	Policy,
 	ProductListType,
@@ -85,90 +84,84 @@ const colors: {[keys: string]: {}} = {
 	goals: '#DCF1FD',
 };
 
-const date = new Date();
-const actualMonth = date.getMonth();
-
-const filterYearly = Object.values(dataColumn).filter(
-	(month: MonthProperties) => month.index <= actualMonth
-);
-
-const filterSix = Object.values(dataColumn).filter(
-	(month: MonthProperties) =>
-		month.index < actualMonth + 1 && month.index > actualMonth - 6
-);
-
-const filterThree = Object.values(dataColumn).filter(
-	(month: MonthProperties) =>
-		month.index < actualMonth + 1 && month.index > actualMonth - 3
-);
-
-const setLabelYearly = Object.values(dataColumn)
-	.filter((label: MonthProperties) => label.index <= actualMonth)
-	.map((label: MonthProperties) => label.label);
-
-const setLabelSix = Object.values(dataColumn)
-	.filter(
-		(label: MonthProperties) =>
-			label.index < actualMonth + 1 && label.index > actualMonth - 6
-	)
-	.map((label: MonthProperties) => label.label);
-
-const setLabelThree = Object.values(dataColumn)
-	.filter(
-		(label: MonthProperties) =>
-			label.index < actualMonth + 1 && label.index > actualMonth - 3
-	)
-	.map((label: MonthProperties) => label.label);
-
 const paddingValue = 100;
 
 const ProductPerformance = () => {
 	const [products, setProducts] = useState<ProductCell[]>([]);
 	const [timePeriod, setTimePeriod] = useState(PERIOD.THREE_MONTH);
-	const [filt, setFilt] = useState<MonthProperties[]>(filterYearly);
+
 	const [labelAxisX] = useState<[]>();
 	const ref = useRef<any>();
 
-	const achieved = filt.map((item: MonthProperties) =>
-		item.achieved > item.goals ? item.goals : item.achieved
-	);
-
-	const exceeded = filt.map((item: MonthProperties) =>
-		item.achieved > item.goals ? item.achieved - item.goals : NaN
-	);
-	const goals = filt.map((item: MonthProperties) =>
-		item.goals < 0 || item.goals < item.achieved ? NaN : item.goals
-	);
-
-	const dataChart: DataChart = {
-		data: {
-			columns: [
-				['achieved', ...achieved],
-				['exceeded', ...exceeded],
-				['goals', ...goals],
-			],
-			groups: [
-				['achieved', 'exceeded'],
-				['achieved', 'goals'],
-			],
+	const loadData = [
+		{
+			achieved: [12, 23, 34],
+			dataColumns: ['Submissions', 4, 5, 10],
+			exceeded: [0, 0, 0],
+			goals: [1223, 434, 434],
+			label: ['Agost 2022', 'Jul 2022', 'Jun 2022'],
+			period: 2,
+			periodDate: 'Period',
 		},
+		{
+			achieved: [12, 23, 34, 23, 34, 3],
+			dataColumns: ['Submissions', 3, 1, 10, 3, 6, 10],
+			exceeded: [0, 0, 0, 0, 0, 0],
+			goals: [123, 222, 321, 123, 123, 111],
+			label: [
+				'Agost 2022',
+				'Jul 2022',
+				'Jun 2022',
+				'marc 222',
+				'Jul 2022',
+				'Jun 2022',
+			],
+			period: 1,
+			periodDate: 'Period',
+		},
+		{
+			achieved: [12, 23, 34, 23, 34, 3, 23, 34, 23],
+			dataColumns: ['Submissions', 3, 6, 10, 4, 5, 10, 9, 7, 2],
+			exceeded: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+			goals: [123, 222, 321, 123, 123, 111, 123, 123, 111],
+			label: [
+				'Agost 2022',
+				'Jul 2022',
+				'Jun 2022',
+				'marc 222',
+				'Jul 2022',
+				'Jun 2022',
+				'marc 222',
+				'Jul 2022',
+				'Jun 2022',
+			],
+			period: 0,
+			periodDate: 'Period',
+		},
+	];
+
+	const getData = () => {
+		return loadData.filter((data) => data.period === Number(timePeriod));
 	};
 
-	const defineFilt = (timePeriod: string) => {
-		if (timePeriod === PERIOD.SIX_MONTH) {
-			setFilt(filterSix);
-			ref.current.categories(setLabelSix);
-		}
-		if (timePeriod === PERIOD.THREE_MONTH) {
-			setFilt(filterThree);
-			ref.current.categories(setLabelThree);
-		}
-		if (timePeriod === PERIOD.YTD) {
-			setFilt(filterYearly);
-			ref.current.categories(setLabelYearly);
-		} else {
-			timePeriod = PERIOD.YTD;
-		}
+	// eslint-disable-next-line no-console
+	console.log(getData()[0].achieved.sort());
+
+	const dataChart = {
+		colors,
+		columns: [getData()[0]?.dataColumns],
+		groups: [
+			['achieved', 'exceeded'],
+			['achieved', 'goals'],
+		],
+		order: {
+			function() {
+				Object.values(dataColumn).map((item: MonthProperties) =>
+					item.achieved > item.goals ? 'asc' : 'desc '
+				);
+			},
+		},
+		type: 'bar',
 	};
 
 	const productsBaseSetup = async () => {
@@ -246,8 +239,8 @@ const ProductPerformance = () => {
 	useEffect(() => {
 		productsBaseSetup();
 
-		defineFilt(timePeriod);
-	}, [timePeriod]);
+		ref.current.categories(getData()[0]?.label);
+	}, []);
 
 	const handleProductFilterToggle = (
 		productExternalReferenceCode: string
@@ -370,23 +363,7 @@ const ProductPerformance = () => {
 						bar={{
 							width: 20,
 						}}
-						data={{
-							colors,
-							columns: dataChart.data.columns,
-							groups: dataChart.data.groups,
-							order: {
-								function() {
-									Object.values(
-										dataColumn
-									).map((item: MonthProperties) =>
-										item.achieved > item.goals
-											? 'asc'
-											: 'desc '
-									);
-								},
-							},
-							type: 'bar',
-						}}
+						data={dataChart}
 						grid={{
 							x: {
 								show: true,
