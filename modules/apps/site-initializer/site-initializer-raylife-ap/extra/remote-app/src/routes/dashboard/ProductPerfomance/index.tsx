@@ -44,6 +44,23 @@ const PERIOD = {
 	YTD: '0',
 };
 
+const CONSTANTS = {
+	MONTHS_ABREVIATIONS: [
+		'Jan',
+		'Feb',
+		'Mar',
+		'Apr',
+		'May',
+		'Jun',
+		'Jul',
+		'Aug',
+		'Sep',
+		'Oct',
+		'Nov',
+		'Dec',
+	],
+};
+
 const BarChartPerformancee: BarChartPerformanceTypes = {
 	colors: [],
 	dataColumns: [],
@@ -94,48 +111,16 @@ const ProductPerformance = () => {
 	const date = new Date();
 	const actualMonth = date.getMonth();
 
-	const [threeSales, setThreeSales] = useState<any>([]);
-	const [threeGoals, setThreeGoals] = useState<any>([]);
+	const [threeMonthsSalesData, setThreeMonthsSalesData] = useState<any>([]);
+	const [threeMonthsGoalsData, setThreeMonthsGoalsData] = useState<any>([]);
+
+	const [yearToDateSales, setYearToDateSales] = useState<any>([]);
+	const [yearToDateGoals, setYearToDateGoals] = useState<any>([]);
+
 	const [sixSales, setSixSales] = useState<any>([]);
 	const [sixGoals, setSixGoals] = useState<any>([]);
 	const [yearSales, setYearSales] = useState<any>([]);
 	const [yearGoals, setYearGoals] = useState<any>([]);
-
-	// const [three, setThree] = useState<[]>();
-	// const [six, setSix] = useState<[]>();
-	// const [yearly, setYearly] = useState<[]>();
-
-	// const exceeded = filt.map((item: MonthProperties) =>
-	// 	item.achieved > item.goals ? item.achieved - item.goals : NaN
-	// );
-	// const goals = loadData]((item: MonthProperties) =>
-	// 	item.goals < 0 || item.goals < item.achieved ? NaN : item.goals
-
-	function subtraiaArrays(a1: any, a2: any) {
-		return a1.map((value: number, index: number) => value - a2[index]);
-	}
-
-	const threeMonthsSales = [10, 20, 30];
-
-	const threeMonthsGoals = [30, 20, 40];
-
-	const sixMonthsSales = [10, 20, 30];
-
-	const sixMonthsGoals = [30, 20, 40];
-
-	const salesFilterForThreeMonths = subtraiaArrays(
-		threeMonthsGoals,
-		threeMonthsSales
-	);
-
-	const salesFilterForSixMonths = subtraiaArrays(
-		sixMonthsGoals,
-		sixMonthsSales
-	);
-
-	console.log('salesFilterForThreeMonths', salesFilterForThreeMonths);
-
-	console.log('salesFilterForSixMonths', salesFilterForSixMonths);
 
 	const policySales = [
 		400,
@@ -153,52 +138,6 @@ const ProductPerformance = () => {
 	];
 
 	const goal = [300, 250, 180, 300, 335, 250, 440, 660, 440, 140, 230, 210];
-
-	// const achievedd = () => {
-	// 	achi.map((item: any) =>
-	// 		achi[item] > goal[item]
-	// 			? achieved.push(goal[item])
-	// 			: achieved.push(achi[item])
-	// 	);
-	// };
-
-	// const exceededFilt = () => {
-	// 	for (let i = 0; i < goal.length; i++) {
-	// 		achi[i] > goal[i]
-	// 			? exceeded.push(achi[i] - goal[i])
-	// 			: exceeded.push(NaN);
-	// 	}
-	// };
-
-	// exceededFilt();
-
-	// const goalsFilt = () => {
-	// 	for (let i = 0; i < achieved.length; i++) {
-	// 		goal[i] < achi[i] ? goals.push(NaN) : goals.push(goal[i] - achi[i]);
-	// 	}
-	// };
-
-	// goalsFilt();
-
-	const getThreeMonthsSales = () => {
-		for (let i = 0; i < goal.length; i++) {
-			if (i < actualMonth + 1 && i > actualMonth - 3) {
-				threeSales.push(policySales[i]);
-			}
-		}
-
-		return setThreeSales(threeSales);
-	};
-
-	const getThreeMonthsGoals = () => {
-		for (let i = 0; i < policySales.length; i++) {
-			if (i < actualMonth + 1 && i > actualMonth - 3) {
-				threeGoals.push(goal[i]);
-			}
-		}
-
-		return setThreeGoals(threeGoals);
-	};
 
 	const getSixMonthsSales = () => {
 		for (let i = 0; i < goal.length; i++) {
@@ -240,12 +179,261 @@ const ProductPerformance = () => {
 		return setYearGoals(yearGoals);
 	};
 
+	function populateSales(policiesResult: any, policiesArray: any) {
+		policiesResult.forEach((policy: any) => {
+			const month = new Date(policy?.boundDate)
+				.toUTCString()
+				.split(' ')[2];
+
+			policiesArray?.forEach((policyElement: any) => {
+				if (month in policyElement) {
+					policyElement[month] += policy?.termPremium;
+				}
+			});
+		});
+
+		return policiesArray;
+	}
+
+	function populateGoals(goalsResult: any, goalsArray: any) {
+		goalsResult.forEach((policy: any) => {
+			const month = new Date(policy?.finalReferenceDate)
+				.toUTCString()
+				.split(' ')[2];
+
+			goalsArray?.forEach((goalElement: any) => {
+				if (month in goalElement) {
+					goalElement[month] += policy?.goalValue;
+				}
+			});
+		});
+
+		return goalsArray;
+	}
+
+	const getArrayOfSales = (response: any, arrayOfMonthsArray: any) => {
+		const monthsResult = response?.data?.items;
+		const arrayOfMonths = populateSales(monthsResult, arrayOfMonthsArray);
+
+		return getValuesFromArrayOfObjects(arrayOfMonths);
+	};
+
+	const getArrayOfGoals = (response: any, monthsAgoGoalsArray: any) => {
+		const monthsGoalsResult = response?.data?.items;
+		const monthsAgoGoals = populateGoals(
+			monthsGoalsResult,
+			monthsAgoGoalsArray
+		);
+
+		return getValuesFromArrayOfObjects(monthsAgoGoals);
+	};
+
+	function getValuesFromArrayOfObjects(arrayOfObjects: any) {
+		const valuesArray = arrayOfObjects?.map((values: any) => {
+			return Object.values(values)[0];
+		});
+
+		return valuesArray;
+	}
+
+	function getExceededValues(goalValue: any, salesValue: any) {
+		const exceededValue = goalValue?.map((goal: number, index: number) => {
+			if (goal - salesValue[index] <= 0) {
+				return (goal - salesValue[index]) * -1;
+			} else {
+				return 0;
+			}
+		});
+
+		return exceededValue;
+	}
+
+	function getGoalsValues(goalValue: any, salesValue: any) {
+		const goalsValues = goalValue?.map((goal: number, index: number) => {
+			if (goal - salesValue[index] >= 0) {
+				return goal - salesValue[index];
+			} else {
+				return 0;
+			}
+		});
+
+		return goalsValues;
+	}
+
+	function getAchievedValues(goalValue: any, salesValue: any) {
+		const achievedValues = goalValue?.map((goal: number, index: number) => {
+			if (goal - salesValue[index] <= 0) {
+				return goal;
+			} else {
+				return salesValue[index];
+			}
+		});
+
+		return achievedValues;
+	}
+
+	useEffect(() => {
+		const threeMonthsSalesArray: any = [];
+		const threeMonthsGoalsArray: any = [];
+		const yearToDateSalesArray: any = [];
+		const yearToDateGoalsArray: any = [];
+
+		const numberOfMonths = 12;
+		const maxIndexOfMonthsArray = 11;
+		const threeMonthsDatePeriod = 2;
+		const indexOfCurrentMonth = new Date().getMonth();
+
+		let indexBaseMonth = indexOfCurrentMonth - threeMonthsDatePeriod;
+
+		indexBaseMonth =
+			indexBaseMonth < 0
+				? numberOfMonths + indexBaseMonth
+				: indexBaseMonth;
+
+		let month = 0;
+
+		for (let count = 0; count <= threeMonthsDatePeriod; count++) {
+			const threeMonthsSalesFilter: any = {};
+			const threeMonthsGoalsFilter: any = {};
+
+			if (!count) {
+				month = indexBaseMonth;
+			}
+			if (month > maxIndexOfMonthsArray) {
+				month = 0;
+			}
+
+			threeMonthsSalesFilter[CONSTANTS.MONTHS_ABREVIATIONS[month]] = 0;
+			threeMonthsGoalsFilter[CONSTANTS.MONTHS_ABREVIATIONS[month]] = 0;
+			threeMonthsSalesArray[count] = threeMonthsSalesFilter;
+			threeMonthsGoalsArray[count] = threeMonthsGoalsFilter;
+
+			month++;
+		}
+
+		let monthposition = 0;
+
+		for (let count = 0; count <= indexOfCurrentMonth; count++) {
+			const yearToDateSalesFilter: any = {};
+			const yearToDateGoalsFilter: any = {};
+
+			yearToDateSalesFilter[
+				CONSTANTS.MONTHS_ABREVIATIONS[monthposition]
+			] = 0;
+			yearToDateGoalsFilter[
+				CONSTANTS.MONTHS_ABREVIATIONS[monthposition]
+			] = 0;
+
+			yearToDateSalesArray[count] = yearToDateSalesFilter;
+			yearToDateGoalsArray[count] = yearToDateGoalsFilter;
+			monthposition++;
+		}
+
+		if (timePeriod === PERIOD.YTD) {
+			getSalesGoal(
+				currentDateString[0],
+				currentDateString[1],
+				currentDateString[0],
+				january
+			).then((results) => {
+				const YearToDateGoalsResult = getArrayOfGoals(
+					results,
+					yearToDateGoalsArray
+				);
+
+				setYearToDateGoals(YearToDateGoalsResult);
+			});
+
+			getPoliciesForSalesGoal(
+				currentDateString[0],
+				currentDateString[1],
+				currentDateString[0],
+				january
+			).then((results) => {
+				const YearToDateSalesResult = getArrayOfSales(
+					results,
+					yearToDateSalesArray
+				);
+
+				setYearToDateSales(YearToDateSalesResult);
+			});
+		}
+
+		if (timePeriod === PERIOD.THREE_MONTH) {
+			getSalesGoal(
+				currentDateString[0],
+				currentDateString[1],
+				threeMonthsAgoDate[0],
+				threeMonthsAgoDate[1]
+			).then((results: any) => {
+				const lastThreeMonthsGoalsResult = getArrayOfGoals(
+					results,
+					threeMonthsGoalsArray
+				);
+
+				setThreeMonthsGoalsData(lastThreeMonthsGoalsResult);
+			});
+
+			getPoliciesForSalesGoal(
+				currentDateString[0],
+				currentDateString[1],
+				threeMonthsAgoDate[0],
+				threeMonthsAgoDate[1]
+			).then((results: any) => {
+				const lastThreeMonthsSalesResult = getArrayOfSales(
+					results,
+					threeMonthsSalesArray
+				);
+
+				setThreeMonthsSalesData(lastThreeMonthsSalesResult);
+			});
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [timePeriod]);
+
+	const exceededValueThreeMonths = getExceededValues(
+		threeMonthsGoalsData,
+		threeMonthsSalesData
+	);
+
+	const goalValueThreeMonths = getGoalsValues(
+		threeMonthsGoalsData,
+		threeMonthsSalesData
+	);
+
+	const achievedValueThreeMonths = getAchievedValues(
+		threeMonthsGoalsData,
+		threeMonthsSalesData
+	);
+
+	const achievedValueYearToDate = getAchievedValues(
+		yearToDateGoals,
+		yearToDateSales
+	);
+
+	const exceededValueYearToDate = getExceededValues(
+		yearToDateGoals,
+		yearToDateSales
+	);
+
+	const goalValueYearToDate = getGoalsValues(
+		yearToDateGoals,
+		yearToDateSales
+	);
+
+	console.log('achievedValueYearToDate', achievedValueYearToDate);
+
+	console.log('exceededValueYearToDate', exceededValueYearToDate);
+
+	console.log('goalValueYearToDate', goalValueYearToDate);
+
 	const loadData = [
 		{
-			achieved: ['achieved', ...threeSales],
+			achieved: ['achieved', ...achievedValueThreeMonths],
 			dataGroups: ['goals', 'achieved', 'exceeded', 'goals'],
-			exceeded: ['exceeded', 0, 0, 0],
-			goals: ['goals', ...threeGoals],
+			exceeded: ['exceeded', ...exceededValueThreeMonths],
+			goals: ['goals', ...goalValueThreeMonths],
 			label: ['Ago 2022', 'Jul 2022', 'Jun 2022'],
 			period: 2,
 			periodDate: 'Period',
@@ -288,21 +476,23 @@ const ProductPerformance = () => {
 	];
 
 	const getData = () => {
-		return loadData.filter((data) => data.period === Number(timePeriod));
+		return loadData?.filter((data) => data.period === Number(timePeriod));
 	};
-
-	console.log(getData()[0]?.achieved);
 
 	const dataChart = {
 		colors,
-		columns: [getData()[0]?.achieved, getData()[0]?.goals],
+		columns: [
+			getData()[0]?.achieved,
+			getData()[0]?.goals,
+			getData()[0]?.exceeded,
+		],
 		groups: [
 			['goals', 'exceeded'],
 			['achieved', 'goals'],
 		],
 		order: {
 			function() {
-				loadData.map((month: any) =>
+				loadData?.map((month: any) =>
 					month.achieved > month.goals ? 'asc' : 'desc '
 				);
 			},
@@ -385,37 +575,10 @@ const ProductPerformance = () => {
 	useEffect(() => {
 		productsBaseSetup();
 
-		getThreeMonthsSales();
-		getThreeMonthsGoals();
 		getSixMonthsSales();
 		getSixMonthsGoals();
 		getYearlyMonthsSales();
 		getYearlyMonthsGoals();
-
-		// getSixMonthsSales();
-		// getSixMonthsGoals();
-		// getYearlyMonthsSales();
-		// getYearlyMonthsGoals();
-
-		getSalesGoal(
-			currentDateString[0],
-			currentDateString[1],
-			threeMonthsAgoDate[0],
-			threeMonthsAgoDate[1]
-		).then((results: any) => {
-			// const lastThreeMonthsGoalsResult = results?.data?.items;
-
-			console.log('salesGoalMeta', results.data.items);
-		});
-
-		getPoliciesForSalesGoal(
-			currentDateString[0],
-			currentDateString[1],
-			threeMonthsAgoDate[0],
-			threeMonthsAgoDate[1]
-		).then((results: any) => {
-			console.log('vendas', results.data.items);
-		});
 
 		ref.current.categories(getData()[0]?.label);
 	}, []);
@@ -489,7 +652,6 @@ const ProductPerformance = () => {
 						className="product-performance-select"
 						onChange={({target}) => {
 							setTimePeriod(target.value);
-							console.log(timePeriod);
 						}}
 						sizing="sm"
 						value={timePeriod}
@@ -505,67 +667,69 @@ const ProductPerformance = () => {
 				</div>
 
 				<div className="p-5">
-					<ClayChart
-						axis={{
-							x: {
-								categories: labelAxisX,
-								height: 85,
-								label: {
-									position: 'outer-center',
-									text: 'Period (Month)',
-								},
-								position: {x: 30},
-								show: true,
-								type: 'category',
-								width: 100,
-							},
-							y: {
-								height: 80,
-								label: {
-									position: 'outer-middle',
-									text: 'Dollar ($)',
-								},
-								padding: {
-									left: 200,
-									right: 200,
-								},
-								show: true,
-								tick: {
-									format(x: string) {
-										return '$' + x;
+					{achievedValueYearToDate && (
+						<ClayChart
+							axis={{
+								x: {
+									categories: labelAxisX,
+									height: 85,
+									label: {
+										position: 'outer-center',
+										text: 'Period (Month)',
 									},
-									stepSize: 100,
+									position: {x: 30},
+									show: true,
+									type: 'category',
+									width: 100,
 								},
-								width: 100,
-							},
-						}}
-						bar={{
-							width: 20,
-						}}
-						data={dataChart}
-						grid={{
-							x: {
+								y: {
+									height: 80,
+									label: {
+										position: 'outer-middle',
+										text: 'Dollar ($)',
+									},
+									padding: {
+										left: 200,
+										right: 200,
+									},
+									show: true,
+									tick: {
+										format(x: string) {
+											return '$' + x;
+										},
+										stepSize: 10000,
+									},
+									width: 100,
+								},
+							}}
+							bar={{
+								width: 20,
+							}}
+							data={dataChart}
+							grid={{
+								x: {
+									show: true,
+								},
+								y: {
+									show: true,
+								},
+							}}
+							legend={{
+								show: false,
+							}}
+							padding={{
+								right: paddingValue,
+							}}
+							ref={ref}
+							size={{
+								height: BarChartPerformancee.height,
+								width: BarChartPerformancee.width,
+							}}
+							tooltip={{
 								show: true,
-							},
-							y: {
-								show: true,
-							},
-						}}
-						legend={{
-							show: false,
-						}}
-						padding={{
-							right: paddingValue,
-						}}
-						ref={ref}
-						size={{
-							height: BarChartPerformancee.height,
-							width: BarChartPerformancee.width,
-						}}
-						tooltip={{
-							show: true,
-						}}
-					/>
+							}}
+						/>
+					)}
 				</div>
 			</div>
 		</div>
