@@ -26,6 +26,7 @@ import Claims from './routes/claims/pages/Claims';
 import ProductPerformance from './routes/dashboard/ProductPerfomance';
 import RecentApplications from './routes/dashboard/pages/RecentApplications';
 import WhatsNewModal from './routes/dashboard/pages/SettingsModals';
+import PoliciesTable from './routes/policies/PoliciesTable';
 import Policies from './routes/policies/pages/Policies';
 import Reports from './routes/reports/pages/Reports';
 
@@ -56,6 +57,10 @@ const DirectToCustomer: React.FC<Props> = ({route}) => {
 
 	if (routeEntry === 'policies') {
 		return <Policies />;
+	}
+
+	if (routeEntry === 'policies-table') {
+		return <PoliciesTable />;
 	}
 
 	if (routeEntry === 'claims') {

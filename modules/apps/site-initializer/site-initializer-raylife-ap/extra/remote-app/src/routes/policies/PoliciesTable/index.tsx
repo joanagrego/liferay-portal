@@ -18,21 +18,16 @@ import {ClayPaginationWithBasicItems} from '@clayui/pagination';
 import ClayPaginationBar from '@clayui/pagination-bar';
 import {useEffect, useState} from 'react';
 
-import Header from '../../../../common/components/header';
-import Table from '../../../../common/components/table';
-import {
-	deleteApplicationByExternalReferenceCode,
-	getApplications,
-} from '../../../../common/services';
-import formatDate from '../../../../common/utils/dateFormatter';
+import Header from '../../../common/components/header';
+import Table from '../../../common/components/table';
+import {getPolicies} from '../../../common/services';
+import formatDate from '../../../common/utils/dateFormatter';
 
 const HEADERS = [
 	{
-		clickable: true,
 		greyColor: true,
-		key: 'applicationCreateDate',
-		type: 'link',
-		value: 'Date Filed',
+		key: 'boundDate',
+		value: 'Bound Date',
 	},
 	{
 		key: 'productName',
@@ -43,50 +38,49 @@ const HEADERS = [
 		clickable: true,
 		key: 'externalReferenceCode',
 		type: 'link',
-		value: 'Application Number',
+		value: 'Policy Number',
 	},
 	{
-		key: 'fullName',
+		greyColor: true,
+		key: 'policyOwnerName',
 		value: 'Name',
 	},
 	{
-		clickable: true,
 		greyColor: true,
-		key: 'email',
-		type: 'link',
-		value: 'Email Address',
+		key: 'termPremium',
+		value: 'Monthly Premium',
 	},
 	{
 		greyColor: true,
-		key: 'name',
-		type: 'status',
-		value: 'Status',
+		key: 'boundDate',
+		value: 'Policy Period',
+	},
+	{
+		greyColor: true,
+		key: 'commission',
+		value: 'Commission',
 	},
 ];
-
-const STATUS_DISABLED = ['Bound', 'Quoted'];
 
 const PARAMETERS = {
 	page: '0',
 	pageSize: '0',
-	sort: 'applicationCreateDate:desc',
+	sort: 'boundDate:desc',
 };
 
-type Application = {
-	applicationCreateDate: Date;
-	applicationNumber: number;
-	applicationStatus: {name: string};
-	email: string;
+type Policy = {
+	boundDate: Date;
+	commission: number;
 	externalReferenceCode: string;
-	firstName: string;
-	lastName: string;
+	policyOwnerName: string;
 	productName: string;
+	termPremium: number;
 };
 
 type TableContent = {[keys: string]: string};
 
-const ApplicationsTable = () => {
-	const [applications, setApplications] = useState<TableContent[]>([]);
+const PoliciesTable = () => {
+	const [policies, setPolicies] = useState<TableContent[]>([]);
 	const [totalCount, setTotalCount] = useState<number>(0);
 	const [pageSize, setPageSize] = useState<number>(5);
 	const [totalPages, setTotalPages] = useState<number>(0);
@@ -99,60 +93,38 @@ const ApplicationsTable = () => {
 	PARAMETERS.pageSize = pageSize.toString();
 	PARAMETERS.page = page.toString();
 
-	const handleDeleteApplication = (externalReferenceCode: string) => {
-		deleteApplicationByExternalReferenceCode(externalReferenceCode);
-
-		const filteredApplications = applications.filter(
-			(application) => !(application.key === externalReferenceCode)
-		);
-
-		setApplications(filteredApplications);
-		setTotalCount(totalCount - 1);
+	const handleDeletePolicy = (externalReferenceCode: string) => {
+		alert(`Delete ${externalReferenceCode} Action`);
 	};
 
-	const handleEditApplication = (externalReferenceCode: string) => {
+	const handleEditPolicy = (externalReferenceCode: string) => {
 		alert(`Edit ${externalReferenceCode} Action`);
 	};
 
-	const setDisabledAction = (identifier: string) => {
-		const application = applications.find(
-			(application) => application.key === identifier
-		) as TableContent;
-
-		return STATUS_DISABLED.includes(application.name);
-	};
-
 	useEffect(() => {
-		getApplications(PARAMETERS).then((results) => {
-			const applicationsList: TableContent[] = [];
-
+		getPolicies(PARAMETERS).then((results) => {
+			const policiesList: TableContent[] = [];
 			results?.data?.items.forEach(
 				({
-					applicationCreateDate,
-					applicationStatus: {name},
-					email,
+					boundDate,
+					commission,
 					externalReferenceCode,
-					firstName,
-					lastName,
+					policyOwnerName,
 					productName,
-				}: Application) => {
-					const fullName = firstName + ' ' + lastName;
-
-					applicationsList.push({
-						applicationCreateDate: formatDate(
-							new Date(applicationCreateDate),
-							true
-						),
-						email,
+					termPremium,
+				}: Policy) => {
+					policiesList.push({
+						boundDate: formatDate(new Date(boundDate), true),
+						commission: commission.toString(),
 						externalReferenceCode,
-						fullName,
 						key: externalReferenceCode,
-						name,
+						policyOwnerName,
 						productName,
+						termPremium: termPremium.toString(),
 					});
 				}
 			);
-			setApplications(applicationsList);
+			setPolicies(policiesList);
 
 			const totalCount = results?.data?.totalCount;
 			setTotalCount(totalCount);
@@ -169,25 +141,24 @@ const ApplicationsTable = () => {
 		});
 	}, [pageSize, page]);
 
-	const title = `Applications (${totalCount})`;
+	const title = `Joana (${totalCount})`;
 
 	return (
-		<div className="px-3 ray-dashboard-recent-applications">
+		<div className="px-3 ray-dashboard-recent-policies">
 			<Header className="mb-5 pt-3" title={title} />
 
 			<Table
 				actions={[
 					{
-						action: handleEditApplication,
-						disabled: setDisabledAction,
+						action: handleEditPolicy,
 						value: 'Edit',
 					},
 					{
-						action: handleDeleteApplication,
+						action: handleDeletePolicy,
 						value: 'Delete',
 					},
 				]}
-				data={applications}
+				data={policies}
 				headers={HEADERS}
 			/>
 
@@ -266,4 +237,4 @@ const ApplicationsTable = () => {
 	);
 };
 
-export default ApplicationsTable;
+export default PoliciesTable;
