@@ -27,6 +27,7 @@ import Claims from './routes/claims/pages/Claims';
 import ProductPerformance from './routes/dashboard/ProductPerformance';
 import RecentApplications from './routes/dashboard/pages/RecentApplications';
 import WhatsNewModal from './routes/dashboard/pages/SettingsModals';
+import PoliciesTable from './routes/policies/PoliciesTable';
 import Policies from './routes/policies/pages/Policies';
 import PoliciesTable from './routes/policies/pages/PoliciesTable';
 import Reports from './routes/reports/pages/Reports';
