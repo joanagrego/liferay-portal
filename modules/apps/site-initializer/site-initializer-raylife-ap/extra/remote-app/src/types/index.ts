@@ -12,6 +12,8 @@
  * details.
  */
 
+import {TableRowContentType} from '../common/components/table/types';
+
 export type ActionMap<M extends {[index: string]: any}> = {
 	[Key in keyof M]: M[Key] extends undefined
 		? {
@@ -22,3 +24,7 @@ export type ActionMap<M extends {[index: string]: any}> = {
 				type: Key;
 		  };
 };
+
+export type ItemsProducts = TableRowContentType;
+
+export type itemsPicklists = TableRowContentType;

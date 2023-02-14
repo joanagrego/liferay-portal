@@ -16,49 +16,8 @@ import Button, {ClayButtonWithIcon} from '@clayui/button';
 import ClayTable from '@clayui/table';
 import classnames from 'classnames';
 
-import SettingsButton, {ActionObject} from '../settings-button';
-
-type sort = {
-	[keys: string]: boolean;
-};
-
-type TableRowContentType = {[keys: string]: string};
-
-type TableHeaders = {
-	bold?: boolean;
-	centered?: boolean;
-	clickable?: boolean;
-	clickableSort?: boolean;
-	greyColor?: boolean;
-	hasSort?: boolean;
-	icon?: boolean;
-	key: string;
-	redColor?: boolean;
-	requestLabel: string;
-	type?: string;
-	value: string;
-};
-
-type TableProps = {
-	actions: ActionObject[];
-	data: {[keys: string]: string}[];
-	headers: TableHeaders[];
-	onClickRules?: (
-		item: TableHeaders,
-		rowContent: TableRowContentType
-	) => void;
-	onSaveCurrent?: (item: string) => void;
-	setSort?: (item: sort) => void;
-	setSortByOrder?: (item: string) => void;
-	sort?: sort;
-	sortByOrder?: string;
-	valuer?: string;
-};
-
-enum Order {
-	Ascendant = 'asc',
-	Descendant = 'desc',
-}
+import SettingsButton from '../settings-button';
+import {Order, TableHeadersType, TableProps, TableSortType} from './types';
 
 const {Body, Cell, Head, Row} = ClayTable;
 
@@ -78,7 +37,7 @@ const Table: React.FC<TableProps> = ({
 	};
 
 	const updateSort = (colunn: string) => {
-		const newSort: sort = {};
+		const newSort: TableSortType = {};
 
 		headers.forEach((item) => {
 			if (item.requestLabel === colunn) {
@@ -95,7 +54,7 @@ const Table: React.FC<TableProps> = ({
 		<table className="border-0 ray-table show-quick-actions-on-hover table table-autofit table-list table-responsive">
 			<Head>
 				<Row className="ray-table-head">
-					{headers.map((header: TableHeaders, index: number) => (
+					{headers.map((header: TableHeadersType, index: number) => (
 						<Cell
 							className="py-0 text-paragraph-sm"
 							headingCell

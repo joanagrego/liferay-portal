@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -25,6 +26,12 @@ import {useEffect, useState} from 'react';
 import Header from '../../../../common/components/header';
 import Table from '../../../../common/components/table';
 import {
+	Order,
+	TableHeadersType,
+	TableRowContentType,
+	TableSortType,
+} from '../../../../common/components/table/types';
+import {
 	Parameters,
 	deletePolicyByExternalReferenceCode,
 	getNotExpiredPolicies,
@@ -34,8 +41,9 @@ import {getProducts} from '../../../../common/services/Products';
 import formatDate from '../../../../common/utils/dateFormatter';
 import {redirectTo} from '../../../../common/utils/liferay';
 import useDebounce from '../../../../hooks/useDebounce';
+import {ItemsProducts, itemsPicklists} from '../../../../types';
 
-type Policy = {
+type PolicyEntityType = {
 	commission: number;
 	endDate: string;
 	externalReferenceCode: string;
@@ -46,54 +54,10 @@ type Policy = {
 	termPremium: number;
 };
 
-type TableContent = {[keys: string]: string};
-
-type TableItemType = {
-	centered?: boolean;
-	clickable?: boolean;
-	clickableSort?: boolean;
-	greyColor?: boolean;
-	hasSort?: boolean;
-	icon?: boolean;
-	key: string;
-	redColor?: boolean;
-	requestLabel: string;
-	type?: string;
-	value: string;
-};
-
-type TableRowContentType = {[keys: string]: string};
-
-type itemsPolicies = {
-	[keys: string]: string;
-};
-
-type itemsPolicyFilter = {
-	policyStatus: {name: string};
-	productName: string;
-};
-
-type itemsProducts = {
-	[keys: string]: string;
-};
-
-type itemsPicklists = {
-	[keys: string]: string;
-};
-
-type StateSortType = {
-	[keys: string]: boolean;
-};
-
-enum Order {
-	Ascendant = 'asc',
-	Descendant = 'desc',
-}
-
 const daysToExpirePolicyAlert = 15;
 
 const PoliciesTable = () => {
-	const [policies, setPolicies] = useState<TableContent[]>([]);
+	const [policies, setPolicies] = useState<TableRowContentType[]>([]);
 	const [totalCount, setTotalCount] = useState<number>(0);
 	const [pageSize, setPageSize] = useState<number>(5);
 	const [totalPages, setTotalPages] = useState<number>(0);
@@ -120,7 +84,7 @@ const PoliciesTable = () => {
 		Order.Ascendant
 	);
 
-	const [sortState, setSortState] = useState<StateSortType>({
+	const [sortState, setSortState] = useState<TableSortType>({
 		commission: false,
 		externalReferenceCode: false,
 		monthlyPremium: false,
@@ -361,8 +325,7 @@ const PoliciesTable = () => {
 					);
 				})
 			);
-		}
-		else {
+		} else {
 			setFilterProductCheck(
 				filterProductCheck.filter((productName: string) => {
 					return productName !== `'${currentFilterName}'`;
@@ -486,9 +449,9 @@ const PoliciesTable = () => {
 
 	useEffect(() => {
 		getNotExpiredPolicies(generateParameters()).then((results) => {
-			const allItems: itemsPolicies[] = [];
+			const allItems: TableRowContentType[] = [];
 			results?.data?.items?.forEach(
-				({policyStatus: {name}, productName}: itemsPolicyFilter) => {
+				({policyStatus: {name}, productName}: PolicyEntityType) => {
 					allItems.push({
 						name,
 						productName,
@@ -500,7 +463,7 @@ const PoliciesTable = () => {
 		getProducts().then((results) => {
 			const productsResult = results?.data?.items;
 
-			const products = productsResult.map((product: itemsProducts) => {
+			const products = productsResult.map((product: ItemsProducts) => {
 				return product.name;
 			});
 
@@ -526,7 +489,7 @@ const PoliciesTable = () => {
 
 	useEffect(() => {
 		getNotExpiredPolicies(parameterDebounce).then((results) => {
-			const policiesList: TableContent[] = [];
+			const policiesList: TableRowContentType[] = [];
 			results?.data?.items?.forEach(
 				({
 					commission,
@@ -537,7 +500,7 @@ const PoliciesTable = () => {
 					productName,
 					startDate,
 					termPremium,
-				}: Policy) => {
+				}: PolicyEntityType) => {
 					const policyEndDate = Date.parse(endDate);
 
 					const currentDate: Date = new Date();
@@ -640,7 +603,7 @@ const PoliciesTable = () => {
 	};
 
 	const onClickRules = (
-		item: TableItemType,
+		item: TableHeadersType,
 		rowContent: TableRowContentType
 	) => {
 		if (item.clickable && item.key === 'email') {

@@ -37,6 +37,23 @@ import {redirectTo} from '../../../../common/utils/liferay';
 import useDebounce from '../../../../hooks/useDebounce';
 
 import './index.scss';
+import {
+	TableHeadersType,
+	TableRowContentType,
+	TableSortType,
+} from '../../../../common/components/table/types';
+import {ItemsProducts, itemsPicklists} from '../../../../types';
+
+type Application = {
+	applicationCreateDate: Date;
+	applicationNumber: number;
+	applicationStatus: {name: string};
+	email: string;
+	externalReferenceCode: string;
+	firstName: string;
+	lastName: string;
+	productName: string;
+};
 
 const HEADERS = [
 	{
@@ -98,58 +115,8 @@ const STATUS_DELETE_DISABLED = [
 	'Underwriting',
 ];
 
-type Application = {
-	applicationCreateDate: Date;
-	applicationNumber: number;
-	applicationStatus: {name: string};
-	email: string;
-	externalReferenceCode: string;
-	firstName: string;
-	lastName: string;
-	productName: string;
-};
-
-type TableContent = {[keys: string]: string};
-
-type TableItemType = {
-	centered?: boolean;
-	clickable?: boolean;
-	clickableSort?: boolean;
-	greyColor?: boolean;
-	hasSort?: boolean;
-	icon?: boolean;
-	key: string;
-	redColor?: boolean;
-	requestLabel: string;
-	type?: string;
-	value: string;
-};
-
-type TableRowContentType = {[keys: string]: string};
-
-type itemsApplications = {
-	[keys: string]: string;
-};
-
-type itemsApplicationsFilter = {
-	applicationStatus: {name: string};
-	productName: string;
-};
-
-type itemsProducts = {
-	[keys: string]: string;
-};
-
-type itemsPicklists = {
-	[keys: string]: string;
-};
-
-type StateSortType = {
-	[keys: string]: boolean;
-};
-
 const ApplicationsTable = () => {
-	const [sortState, setSortState] = useState<StateSortType>({
+	const [sortState, setSortState] = useState<TableSortType>({
 		commission: false,
 		externalReferenceCode: false,
 		monthlyPremium: false,
@@ -160,7 +127,7 @@ const ApplicationsTable = () => {
 		renewalDue: true,
 	});
 
-	const [applications, setApplications] = useState<TableContent[]>([]);
+	const [applications, setApplications] = useState<TableRowContentType[]>([]);
 	const [totalCount, setTotalCount] = useState<number>(0);
 	const [pageSize, setPageSize] = useState<number>(5);
 	const [totalPages, setTotalPages] = useState<number>(0);
@@ -289,7 +256,7 @@ const ApplicationsTable = () => {
 	const setDisabledEditAction = (externalReferenceCode: string) => {
 		const application = applications.find(
 			(application) => application.key === externalReferenceCode
-		) as TableContent;
+		) as TableRowContentType;
 
 		return STATUS_EDIT_DISABLED.includes(application.name);
 	};
@@ -297,7 +264,7 @@ const ApplicationsTable = () => {
 	const setDisabledDeleteAction = (externalReferenceCode: string) => {
 		const application = applications.find(
 			(application) => application.key === externalReferenceCode
-		) as TableContent;
+		) as TableRowContentType;
 
 		return STATUS_DELETE_DISABLED.includes(application.name);
 	};
@@ -339,12 +306,9 @@ const ApplicationsTable = () => {
 	useEffect(() => {
 		if (!activeFilter) {
 			getAllApplications(generateParameters()).then((results) => {
-				const allItems: itemsApplications[] = [];
+				const allItems: TableRowContentType[] = [];
 				results?.data?.items?.forEach(
-					({
-						applicationStatus: {name},
-						productName,
-					}: itemsApplicationsFilter) => {
+					({applicationStatus: {name}, productName}: Application) => {
 						allItems.push({
 							name,
 							productName,
@@ -356,7 +320,7 @@ const ApplicationsTable = () => {
 					const productsResult = results?.data?.items;
 
 					const products = productsResult?.map(
-						(product: itemsProducts) => {
+						(product: ItemsProducts) => {
 							return product.name;
 						}
 					);
@@ -385,7 +349,7 @@ const ApplicationsTable = () => {
 
 	useEffect(() => {
 		getApplications(parameterDebounce).then((results) => {
-			const applicationsList: TableContent[] = [];
+			const applicationsList: TableRowContentType[] = [];
 			results?.data?.items.forEach(
 				({
 					applicationCreateDate,
@@ -446,7 +410,7 @@ const ApplicationsTable = () => {
 	};
 
 	const onClickRules = (
-		item: TableItemType,
+		item: TableHeadersType,
 		rowContent: TableRowContentType
 	) => {
 		if (item.clickable && item.key === 'email') {
@@ -571,8 +535,7 @@ const ApplicationsTable = () => {
 					);
 				})
 			);
-		}
-		else {
+		} else {
 			setFilterProductCheck(
 				filterProductCheck.filter((productName: string) => {
 					return productName !== `'${currentFilterName}'`;

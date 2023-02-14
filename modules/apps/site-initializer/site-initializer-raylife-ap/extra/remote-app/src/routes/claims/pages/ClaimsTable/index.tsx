@@ -24,6 +24,11 @@ import {useCallback, useEffect, useState} from 'react';
 
 import Header from '../../../../common/components/header';
 import Table from '../../../../common/components/table';
+import {
+	Order,
+	TableRowContentType,
+	TableSortType,
+} from '../../../../common/components/table/types';
 import {Parameters} from '../../../../common/services';
 import {
 	deleteClaimByExternalReferenceCode,
@@ -41,6 +46,7 @@ import {
 } from '../../../../common/utils/constantsType';
 import formatDate from '../../../../common/utils/dateFormatter';
 import useDebounce from '../../../../hooks/useDebounce';
+import {ItemsProducts, itemsPicklists} from '../../../../types';
 
 type ClaimTableType = {
 	claimCreateDate: string;
@@ -54,35 +60,15 @@ type ClaimTableType = {
 	};
 };
 
-type ItemsProducts = {
-	[keys: string]: string;
-};
-
-type ItemsPicklists = {
-	[keys: string]: string;
-};
-
-type TableContentType = {
-	[key: string]: string;
-};
-
 type ItemsFilteredType = {
 	checked: boolean;
 	item: string;
 };
 
-type StateSortType = {
-	[keys: string]: boolean;
-};
-
-enum Order {
-	Ascendant = 'asc',
-	Descendant = 'desc',
-}
 type ActionType = {eventName: string};
 
 const ClaimsTable = () => {
-	const [dataClaims, setDataClaims] = useState<TableContentType[]>([]);
+	const [dataClaims, setDataClaims] = useState<TableRowContentType[]>([]);
 	const [totalPages, setTotalPages] = useState<number>(0);
 	const [pageSize, setPageSize] = useState<number>(20);
 	const [totalCount, setTotalCount] = useState<number>(0);
@@ -106,7 +92,7 @@ const ClaimsTable = () => {
 
 	const [currentSort, setCurrentSort] = useState<string>('claimCreateDate');
 
-	const [sortState, setSortState] = useState<StateSortType>({
+	const [sortState, setSortState] = useState<TableSortType>({
 		claimCreateDate: true,
 		claimStatus: false,
 		id: false,
@@ -314,7 +300,7 @@ const ClaimsTable = () => {
 			const claimStatusResult = results?.data?.listTypeEntries;
 
 			const claimStatuses = claimStatusResult?.map(
-				(claimStatusPicklist: ItemsPicklists) => {
+				(claimStatusPicklist: itemsPicklists) => {
 					return claimStatusPicklist?.name;
 				}
 			);
@@ -363,7 +349,7 @@ const ClaimsTable = () => {
 	]);
 
 	const getClaimsAndPolicies = useCallback(async () => {
-		const claimList: TableContentType[] = [];
+		const claimList: TableRowContentType[] = [];
 
 		const results = await getClaims(parameterDebounce);
 
@@ -547,8 +533,7 @@ const ClaimsTable = () => {
 					);
 				})
 			);
-		}
-		else {
+		} else {
 			setFilterProductCheck(
 				filterProductCheck.filter((productName: string) => {
 					return productName !== `'${currentFilterName}'`;
