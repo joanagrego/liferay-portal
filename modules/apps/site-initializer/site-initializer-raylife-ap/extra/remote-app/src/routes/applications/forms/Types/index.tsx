@@ -35,3 +35,7 @@ export type HasValidationsTypes = {
 	streetAddress: boolean;
 	zipCode: boolean;
 };
+
+export type ErrorMessageType = {
+	text?: string;
+};
