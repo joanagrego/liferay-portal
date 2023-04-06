@@ -12,7 +12,13 @@
  * details.
  */
 
-export const bodilyInjuryOptions = {
+type CoverageInfoFormOptions = {
+	CA: {[keys: string]: string}[];
+	NV: {[keys: string]: string}[];
+	NY: {[keys: string]: string}[];
+};
+
+export const bodilyInjuryOptions: CoverageInfoFormOptions = {
 	CA: [
 		{
 			label: '',
@@ -81,7 +87,7 @@ export const bodilyInjuryOptions = {
 	],
 };
 
-export const propertyDamageOptions = {
+export const propertyDamageOptions: CoverageInfoFormOptions = {
 	CA: [
 		{
 			label: '',
@@ -150,7 +156,7 @@ export const propertyDamageOptions = {
 	],
 };
 
-export const uninsuredOrUnderinsuredMBIOptions = {
+export const uninsuredOrUnderinsuredMBIOptions: CoverageInfoFormOptions = {
 	CA: [
 		{
 			label: '',
@@ -219,7 +225,7 @@ export const uninsuredOrUnderinsuredMBIOptions = {
 	],
 };
 
-export const uninsuredOrUnderinsuredMPDOptions = {
+export const uninsuredOrUnderinsuredMPDOptions: CoverageInfoFormOptions = {
 	CA: [
 		{
 			label: '',
@@ -288,7 +294,7 @@ export const uninsuredOrUnderinsuredMPDOptions = {
 	],
 };
 
-export const medicalOptions = {
+export const medicalOptions: CoverageInfoFormOptions = {
 	CA: [
 		{
 			label: '',
@@ -357,7 +363,7 @@ export const medicalOptions = {
 	],
 };
 
-export const comprehensiveOptions = {
+export const comprehensiveOptions: CoverageInfoFormOptions = {
 	CA: [
 		{
 			label: '',
@@ -426,7 +432,7 @@ export const comprehensiveOptions = {
 	],
 };
 
-export const collisionOptions = {
+export const collisionOptions: CoverageInfoFormOptions = {
 	CA: [
 		{
 			label: '',
