@@ -1,0 +1,10 @@
+{
+	"friendlyURL": "/insurance",
+	"hidden": false,
+	"name_i18n": {
+		"en_US": "Insurance"
+	},
+	"private": false,
+	"system": false,
+	"type": "Content"
+}

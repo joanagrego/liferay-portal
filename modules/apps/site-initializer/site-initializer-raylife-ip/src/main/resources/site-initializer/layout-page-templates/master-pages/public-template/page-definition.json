@@ -4,23 +4,15 @@
 			{
 				"definition": {
 					"fragmentStyle": {
+						"borderRadius": "",
 						"borderWidth": "0",
 						"maxWidth": "1440px",
-						"paddingBottom": "3",
 						"paddingLeft": "80px",
 						"paddingRight": "80px",
-						"paddingTop": "3",
-						"shadow": "boxShadowSm",
+						"shadow": "",
 						"textAlign": ""
 					},
 					"fragmentViewports": [
-						{
-							"fragmentViewportStyle": {
-								"paddingLeft": "24px",
-								"paddingRight": "24px"
-							},
-							"id": "landscapeMobile"
-						},
 						{
 							"fragmentViewportStyle": {
 								"paddingLeft": "24px",
@@ -43,10 +35,11 @@
 						"marginLeft": 0,
 						"marginRight": 0,
 						"marginTop": 0,
-						"paddingBottom": 1,
+						"opacity": 100,
+						"paddingBottom": 0,
 						"paddingLeft": 0,
 						"paddingRight": 0,
-						"paddingTop": 1,
+						"paddingTop": 0,
 						"widthType": "Fixed"
 					}
 				},
@@ -54,17 +47,8 @@
 					{
 						"definition": {
 							"fragmentStyle": {
-								"borderWidth": "0",
-								"textAlign": ""
+								"borderWidth": "0"
 							},
-							"fragmentViewports": [
-								{
-									"fragmentViewportStyle": {
-										"overflow": ""
-									},
-									"id": "portraitMobile"
-								}
-							],
 							"indexed": true,
 							"layout": {
 								"align": "Center",
@@ -75,6 +59,7 @@
 								"marginLeft": 0,
 								"marginRight": 0,
 								"marginTop": 0,
+								"opacity": 100,
 								"paddingBottom": 0,
 								"paddingLeft": 0,
 								"paddingRight": 0,
@@ -85,43 +70,6 @@
 						"pageElements": [
 							{
 								"definition": {
-									"fragmentLink": {
-										"href": {
-											"mapping": {
-												"itemReference": {
-													"className": "com.liferay.portal.kernel.model.Layout",
-													"fields": [
-														{
-															"fieldName": "friendlyURL",
-															"fieldValue": "/home"
-														},
-														{
-															"fieldName": "privatePage",
-															"fieldValue": "false"
-														},
-														{
-															"fieldName": "siteKey",
-															"fieldValue": "[$GROUP_KEY$]"
-														}
-													]
-												}
-											}
-										}
-									},
-									"fragmentStyle": {
-										"borderWidth": "0",
-										"marginRight": "2",
-										"textAlign": ""
-									},
-									"fragmentViewports": [
-										{
-											"fragmentViewportStyle": {
-												"marginRight": "0",
-												"width": ""
-											},
-											"id": "portraitMobile"
-										}
-									],
 									"indexed": true,
 									"layout": {
 										"align": "Start",
@@ -131,6 +79,7 @@
 										"marginLeft": 0,
 										"marginRight": 0,
 										"marginTop": 0,
+										"opacity": 100,
 										"paddingBottom": 0,
 										"paddingLeft": 0,
 										"paddingRight": 0,
@@ -145,7 +94,7 @@
 												"key": "BASIC_COMPONENT-image"
 											},
 											"fragmentConfig": {
-												"imageSize": "w-0"
+												"imageSize": "w-100"
 											},
 											"fragmentFields": [
 												{
@@ -157,27 +106,77 @@
 																	"fieldKey": "FileEntry_previewImage",
 																	"itemReference": {
 																		"className": "com.liferay.portal.kernel.repository.model.FileEntry",
-																		"classPK": "[#DOCUMENT_FILE_ENTRY_ID:/site-initializer/documents/group/logo.svg#]"
+																		"classPK": "[#DOCUMENT_FILE_ENTRY_ID:/site-initializer/documents/group/raylife_logo.svg#]"
 																	}
 																}
 															}
 														},
-														"fragmentLink": {}
+														"fragmentLink": {
+														}
 													}
 												}
 											],
-											"fragmentStyle": {
-												"borderRadius": "",
-												"marginRight": "1",
-												"shadow": "",
-												"textAlign": ""
+											"indexed": true
+										},
+										"type": "Fragment"
+									}
+								],
+								"type": "Section"
+							},
+							{
+								"definition": {
+									"indexed": true,
+									"layout": {
+										"align": "Center",
+										"borderWidth": 0,
+										"contentDisplay": "FlexRow",
+										"justify": "End",
+										"marginBottom": 0,
+										"marginLeft": 0,
+										"marginRight": 0,
+										"marginTop": 0,
+										"opacity": 100,
+										"paddingBottom": 0,
+										"paddingLeft": 0,
+										"paddingRight": 0,
+										"paddingTop": 0,
+										"widthType": "Fluid"
+									}
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"fragment": {
+												"key": "DIALECT-dialect-text"
 											},
-											"fragmentViewports": [
+											"fragmentConfig": {
+												"textType": "text-link-lg",
+												"truncateText": false
+											},
+											"fragmentFields": [
 												{
-													"fragmentViewportStyle": {
-														"marginRight": "9px"
-													},
-													"id": "portraitMobile"
+													"id": "element-text",
+													"value": {
+														"fragmentLink": {
+														},
+														"text": {
+															"value_i18n": {
+																"ar_SA": "Producer Portal",
+																"ca_ES": "Producer Portal",
+																"de_DE": "Producer Portal",
+																"en_US": "Producer Portal",
+																"es_ES": "Producer Portal",
+																"fi_FI": "Producer Portal",
+																"fr_FR": "Producer Portal",
+																"hu_HU": "Producer Portal",
+																"ja_JP": "Producer Portal",
+																"nl_NL": "Producer Portal",
+																"pt_BR": "Producer Portal",
+																"sv_SE": "Producer Portal",
+																"zh_CN": "Producer Portal"
+															}
+														}
+													}
 												}
 											],
 											"indexed": true
@@ -187,45 +186,54 @@
 									{
 										"definition": {
 											"fragment": {
-												"key": "BASIC_COMPONENT-heading"
+												"key": "clay-icon-link"
 											},
 											"fragmentConfig": {
-												"headingLevel": "h4"
+												"iconLink": "",
+												"iconName": "search"
+											},
+											"fragmentFields": [
+											],
+											"indexed": true
+										},
+										"type": "Fragment"
+									},
+									{
+										"definition": {
+											"fragment": {
+												"key": "DIALECT-dialect-button"
+											},
+											"fragmentConfig": {
+												"buttonSize": "",
+												"inverted": false,
+												"style": "primary",
+												"type": "ghost",
+												"uppercase": false
 											},
 											"fragmentFields": [
 												{
-													"id": "element-text",
+													"id": "link",
 													"value": {
-														"fragmentLink": {},
+														"fragmentLink": {
+														},
 														"text": {
 															"value_i18n": {
-																"ar_SA": "Partner Portal",
-																"ca_ES": "Partner Portal",
-																"de_DE": "Partner Portal",
-																"en_US": "Partner Portal",
-																"es_ES": "Partner Portal",
-																"fi_FI": "Partner Portal",
-																"fr_FR": "Partner Portal",
-																"hu_HU": "Partner Portal",
-																"ja_JP": "Partner Portal",
-																"nl_NL": "Partner Portal",
-																"pt_BR": "Partner Portal",
-																"sv_SE": "Partner Portal",
-																"zh_CN": "Partner Portal"
+																"ar_SA": "SIGN IN",
+																"ca_ES": "SIGN IN",
+																"de_DE": "SIGN IN",
+																"en_US": "SIGN IN",
+																"es_ES": "SIGN IN",
+																"fi_FI": "SIGN IN",
+																"fr_FR": "SIGN IN",
+																"hu_HU": "SIGN IN",
+																"ja_JP": "SIGN IN",
+																"nl_NL": "SIGN IN",
+																"pt_BR": "SIGN IN",
+																"sv_SE": "SIGN IN",
+																"zh_CN": "SIGN IN"
 															}
 														}
 													}
-												}
-											],
-											"fragmentStyle": {
-												"textAlign": ""
-											},
-											"fragmentViewports": [
-												{
-													"fragmentViewportStyle": {
-														"width": ""
-													},
-													"id": "portraitMobile"
 												}
 											],
 											"indexed": true
@@ -234,6 +242,56 @@
 									}
 								],
 								"type": "Section"
+							}
+						],
+						"type": "Section"
+					},
+					{
+						"definition": {
+							"fragmentStyle": {
+								"borderWidth": "0"
+							},
+							"indexed": true,
+							"layout": {
+								"align": "Center",
+								"borderWidth": 0,
+								"contentDisplay": "FlexRow",
+								"justify": "End",
+								"marginBottom": 0,
+								"marginLeft": 0,
+								"marginRight": 0,
+								"marginTop": 0,
+								"opacity": 100,
+								"paddingBottom": 0,
+								"paddingLeft": 0,
+								"paddingRight": 0,
+								"paddingTop": 0,
+								"widthType": "Fluid"
+							}
+						},
+						"pageElements": [
+							{
+								"definition": {
+									"fragment": {
+										"key": "DIALECT-dialect-nav"
+									},
+									"fragmentConfig": {
+										"inverted": false,
+										"navType": "nav-primary",
+										"orientation": "nav-horizontal"
+									},
+									"fragmentFields": [
+									],
+									"indexed": true,
+									"widgetInstances": [
+										{
+											"widgetConfig": {
+											},
+											"widgetName": "com_liferay_site_navigation_menu_web_portlet_SiteNavigationMenuPortlet"
+										}
+									]
+								},
+								"type": "Fragment"
 							}
 						],
 						"type": "Section"
@@ -283,7 +341,8 @@
 					{
 						"definition": {
 							"fragmentSettings": {
-								"unallowedFragments": []
+								"unallowedFragments": [
+								]
 							}
 						},
 						"type": "DropZone"
@@ -296,6 +355,10 @@
 	},
 	"settings": {
 		"colorSchemeName": "01",
+		"styleBook": {
+			"key": "raylife",
+			"name": "Raylife"
+		},
 		"themeName": "Dialect",
 		"themeSettings": {
 			"lfr-theme:regular:show-footer": "false",

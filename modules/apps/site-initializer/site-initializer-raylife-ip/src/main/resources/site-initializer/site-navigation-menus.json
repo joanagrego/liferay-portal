@@ -1,0 +1,33 @@
+[
+	{
+		"menuItems": [
+			{
+				"friendlyURL": "/insurance",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"friendlyURL": "/claims",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"friendlyURL": "/risk-control",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"friendlyURL": "/about-us",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"friendlyURL": "/contact",
+				"privateLayout": false,
+				"type": "layout"
+			}
+		],
+		"name": "Guest Header Navigation Menu",
+		"typeSite": 1
+	}
+]

@@ -1,0 +1,6 @@
+Bundle-Name: Liferay Site Initializer Raylife IP
+Bundle-SymbolicName: com.liferay.site.initializer.raylife.ip
+Bundle-Version: 1.0.104
+Liferay-Site-Initializer-Name: Raylife IP
+Provide-Capability: liferay.site.initializer
+Web-ContextPath: /site-initializer-raylife-ip
