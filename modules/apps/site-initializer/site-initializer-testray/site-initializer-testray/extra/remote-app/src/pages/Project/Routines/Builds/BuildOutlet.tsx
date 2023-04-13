@@ -58,7 +58,6 @@ const BuildOutlet: React.FC<BuildOutletProps> = ({ignorePaths}) => {
 
 	const {setHeaderActions, setHeading, setTabs} = useHeader({
 		shouldUpdate: !hasOtherParams,
-		timeout: 200,
 	});
 
 	const isCurrentPathIgnored = ignorePaths.some((ignorePath) =>
