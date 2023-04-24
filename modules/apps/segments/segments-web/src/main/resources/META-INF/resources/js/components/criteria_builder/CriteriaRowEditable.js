@@ -107,7 +107,7 @@ export default function CriteriaRowEditable({
 
 		return (
 			<>
-				<span className="criterion-string">
+				<span className="c-ml-2 criterion-string">
 					<b className="font-weight-bold">{propertyLabel}</b>
 				</span>
 

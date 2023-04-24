@@ -66,7 +66,7 @@ export default function CriteriaRowReadable({
 	const propertyLabel = selectedProperty ? selectedProperty.label : '';
 
 	return (
-		<span className="criterion-string">
+		<span className="c-ml-2 criterion-string">
 			{_renderCriteriaString({
 				operatorLabel,
 				propertyLabel,

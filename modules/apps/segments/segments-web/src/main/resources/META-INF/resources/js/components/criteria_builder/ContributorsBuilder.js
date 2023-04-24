@@ -111,12 +111,12 @@ export default function ContributorsBuilder({
 						<ClayLayout.ContainerFluid>
 							<div className="c-p-4 content-wrapper">
 								<ClayLayout.Sheet className="c-pb-4">
-									<div className="d-flex flex-wrap justify-content-between mb-4">
-										<h2 className="mb-2 sheet-title">
+									<div className="c-mb-4 d-flex flex-wrap justify-content-between mb-4">
+										<h2 className="c-mb-2 sheet-title">
 											{Liferay.Language.get('conditions')}
 										</h2>
 
-										<div className="criterion-string">
+										<div className="c-ml-2 criterion-string">
 											<div className="btn-group">
 												<div className="btn-group-item inline-item">
 													{membersCountLoading && (
@@ -132,7 +132,7 @@ export default function ContributorsBuilder({
 																'conditions-match'
 															)}
 
-															<b className="font-weight-bold c-ml-2 text-dark">
+															<b className="c-ml-2 font-weight-bold text-dark">
 																{getPluralMessage(
 																	Liferay.Language.get(
 																		'x-member'
