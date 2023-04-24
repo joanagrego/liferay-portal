@@ -109,7 +109,7 @@ export default function ContributorsBuilder({
 						)}
 
 						<ClayLayout.ContainerFluid>
-							<div className="content-wrapper p-4">
+							<div className="c-p-4 content-wrapper">
 								<ClayLayout.Sheet className="c-pb-4">
 									<div className="d-flex flex-wrap justify-content-between mb-4">
 										<h2 className="mb-2 sheet-title">
@@ -121,18 +121,18 @@ export default function ContributorsBuilder({
 												<div className="btn-group-item inline-item">
 													{membersCountLoading && (
 														<ClayLoadingIndicator
-															className="mr-4"
+															className="c-mr-4"
 															small
 														/>
 													)}
 
 													{!membersCountLoading && (
-														<span className="mr-4">
+														<span className="c-mr-4">
 															{Liferay.Language.get(
 																'conditions-match'
 															)}
 
-															<b className="font-weight-bold ml-2 text-dark">
+															<b className="font-weight-bold c-ml-2 text-dark">
 																{getPluralMessage(
 																	Liferay.Language.get(
 																		'x-member'
@@ -187,7 +187,7 @@ export default function ContributorsBuilder({
 													{i !== 0 && (
 														<>
 															<Conjunction
-																className="mb-4 ml-0 mt-4"
+																className="c-mb-4 c-ml-0 c-mt-4"
 																conjunctionName={
 																	criteria.conjunctionId
 																}
