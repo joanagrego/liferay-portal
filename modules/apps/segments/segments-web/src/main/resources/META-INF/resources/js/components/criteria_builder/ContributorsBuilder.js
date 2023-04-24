@@ -70,14 +70,17 @@ export default function ContributorsBuilder({
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<div
-				className={classNames('contributor-builder-root', {
+				className={classNames('contributor-builder-root h-100', {
 					editing,
 				})}
 			>
 				<div
-					className={classNames('criteria-builder-section-sidebar', {
-						'criteria-builder-section-sidebar--with-warning': showDisabledSegmentationAlert,
-					})}
+					className={classNames(
+						'criteria-builder-section-sidebar overflow-hidden position-fixed',
+						{
+							'criteria-builder-section-sidebar--with-warning': showDisabledSegmentationAlert,
+						}
+					)}
 				>
 					<CriteriaSidebar
 						onTitleClicked={_handleCriteriaEdit}
@@ -86,11 +89,11 @@ export default function ContributorsBuilder({
 					/>
 				</div>
 
-				<div className="criteria-builder-section-main">
-					<div className="contributor-container">
+				<div className="c-pr-0 criteria-builder-section-main d-flex h-100 w-100">
+					<div className="contributor-container h-100 overflow-auto position-absolute w-100">
 						{renderEmptyValuesErrors && (
-							<section className="alert-danger criteria-builder-empty-errors-alert">
-								<div className="criteria-builder-empty-errors-alert__inner">
+							<section className="alert-danger criteria-builder-empty-errors-alert position-sticky top-0">
+								<div className="c-pr-0 criteria-builder-empty-errors-alert__inner">
 									<ClayAlert
 										className="border-bottom-0"
 										displayType="danger"
@@ -107,7 +110,7 @@ export default function ContributorsBuilder({
 
 						<ClayLayout.ContainerFluid>
 							<div className="content-wrapper p-4">
-								<ClayLayout.Sheet>
+								<ClayLayout.Sheet className="c-pb-4">
 									<div className="d-flex flex-wrap justify-content-between mb-4">
 										<h2 className="mb-2 sheet-title">
 											{Liferay.Language.get('conditions')}
@@ -129,7 +132,7 @@ export default function ContributorsBuilder({
 																'conditions-match'
 															)}
 
-															<b className="ml-2 text-dark">
+															<b className="font-weight-bold ml-2 text-dark">
 																{getPluralMessage(
 																	Liferay.Language.get(
 																		'x-member'

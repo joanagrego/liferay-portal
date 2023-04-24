@@ -108,7 +108,7 @@ export default function CriteriaRowEditable({
 		return (
 			<>
 				<span className="criterion-string">
-					<b>{propertyLabel}</b>
+					<b className="font-weight-bold">{propertyLabel}</b>
 				</span>
 
 				<ClaySelectWithOption
