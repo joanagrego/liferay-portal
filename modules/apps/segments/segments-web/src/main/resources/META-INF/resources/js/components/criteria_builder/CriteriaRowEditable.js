@@ -209,7 +209,7 @@ export default function CriteriaRowEditable({
 						aria-label={Liferay.Language.get(
 							'duplicate-segment-property'
 						)}
-						className="btn-outline-borderless btn-sm mr-1"
+						className="btn-outline-borderless btn-sm c-mr-1"
 						displayType="secondary"
 						monospaced
 						onClick={_handleDuplicate}

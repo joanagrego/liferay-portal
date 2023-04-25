@@ -45,13 +45,13 @@ export default function CriteriaRowReadable({
 		return (
 			<span>
 				{propertyLabel && (
-					<b className="font-weight-bold mr-1 text-dark">
+					<b className="c-mr-1 font-weight-bold text-dark">
 						{propertyLabel}
 					</b>
 				)}
 
 				{operatorLabel && (
-					<span className="font-weight-bold mr-1 operator">
+					<span className="c-mr-1 font-weight-bold operator">
 						{operatorLabel}
 					</span>
 				)}
