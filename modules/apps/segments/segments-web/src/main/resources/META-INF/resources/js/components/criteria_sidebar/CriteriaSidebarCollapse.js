@@ -88,7 +88,7 @@ const CriteriaSidebarCollapse = ({
 	const _handleClick = (key, editing) => () => onCollapseClick(key, editing);
 
 	return (
-		<ul className="sidebar-collapse-groups">
+		<ul className="c-mb-0 c-pl-0 d-flex sidebar-collapse-groups">
 			{propertyGroups.map((propertyGroup) => {
 				const key = propertyGroup.propertyKey;
 
@@ -108,13 +108,13 @@ const CriteriaSidebarCollapse = ({
 				return (
 					<li
 						className={classNames(
-							`sidebar-collapse-item sidebar-collapse-${propertyGroup.propertyKey}`,
+							`cursor-pointer d-flex flex-column sidebar-collapse-item sidebar-collapse-${propertyGroup.propertyKey}`,
 							activeClasses
 						)}
 						key={key}
 					>
 						<a
-							className="sidebar-collapse-header"
+							className="d-flex justify-content-between position-relative sidebar-collapse-header text-decoration-none text-uppercase"
 							onClick={_handleClick(key, active)}
 							tabIndex="0"
 						>
@@ -122,6 +122,7 @@ const CriteriaSidebarCollapse = ({
 
 							{searchValue && (
 								<ClayBadge
+									className="c-ml-auto c-mr-2"
 									displayType="secondary"
 									label={filteredProperties.length}
 								/>
@@ -136,7 +137,7 @@ const CriteriaSidebarCollapse = ({
 						</a>
 
 						{active && (
-							<div className="flex-grow-1 sidebar-collapse-body">
+							<div className="flex-grow-1 overflow-y-auto sidebar-collapse-body">
 								<p className="pt-3 px-4 text-secondary">
 									{Liferay.Language.get(
 										'inherited-attributes-are-not-taken-into-account-to-include-members-in-segments'
@@ -145,7 +146,7 @@ const CriteriaSidebarCollapse = ({
 
 								<ul className="pl-0">
 									{!filteredProperties.length && (
-										<li className="empty-message">
+										<li className="align-items-center d-flex empty-message h-100 justify-content-center position-relative">
 											{Liferay.Language.get(
 												'no-results-were-found'
 											)}
