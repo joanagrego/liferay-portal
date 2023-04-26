@@ -212,6 +212,7 @@ public class ObjectRelationshipExtensionProvider
 				_objectRelationshipElementsParserRegistry.
 					getObjectRelationshipElementsParser(
 						relatedObjectDefinition.getClassName(),
+						relatedObjectDefinition.getCompanyId(),
 						objectRelationship.getType());
 
 			List<ObjectEntry> nestedObjectEntries =
