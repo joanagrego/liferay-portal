@@ -35,18 +35,18 @@ public class FriendlyURLRedirectionConfigurationProviderImpl
 	public FriendlyURLRedirectionConfiguration
 		getCompanyFriendlyURLRedirectionConfiguration(long companyId) {
 
-		return _getConfiguration(companyId);
+		return _getFriendlyURLRedirectionConfiguration(companyId);
 	}
 
 	@Override
 	public FriendlyURLRedirectionConfiguration
 		getSystemFriendlyURLRedirectionConfiguration() {
 
-		return _getConfiguration(CompanyConstants.SYSTEM);
+		return _getFriendlyURLRedirectionConfiguration(CompanyConstants.SYSTEM);
 	}
 
-	private FriendlyURLRedirectionConfiguration _getConfiguration(
-		long companyId) {
+	private FriendlyURLRedirectionConfiguration
+		_getFriendlyURLRedirectionConfiguration(long companyId) {
 
 		try {
 			if (companyId > CompanyConstants.SYSTEM) {
