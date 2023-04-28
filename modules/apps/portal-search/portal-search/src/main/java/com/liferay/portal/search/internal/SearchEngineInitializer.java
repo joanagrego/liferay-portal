@@ -134,7 +134,7 @@ public class SearchEngineInitializer implements Runnable {
 		stopWatch.start();
 
 		try {
-			if (_shouldExecuteConcurrentReindex()) {
+			if (_isExecuteConcurrentReindex()) {
 				_concurrentReindexManager.createNextIndex(_companyId);
 			}
 			else {
@@ -199,7 +199,7 @@ public class SearchEngineInitializer implements Runnable {
 				futureTask.get();
 			}
 
-			if (_shouldExecuteConcurrentReindex()) {
+			if (_isExecuteConcurrentReindex()) {
 				_concurrentReindexManager.replaceCurrentIndexWithNextIndex(
 					_companyId);
 			}
@@ -211,7 +211,7 @@ public class SearchEngineInitializer implements Runnable {
 			}
 		}
 		catch (Exception exception) {
-			if (_shouldExecuteConcurrentReindex()) {
+			if (_isExecuteConcurrentReindex()) {
 				_concurrentReindexManager.deleteNextIndex(_companyId);
 			}
 
@@ -225,7 +225,7 @@ public class SearchEngineInitializer implements Runnable {
 		_finished = true;
 	}
 
-	private boolean _shouldExecuteConcurrentReindex() {
+	private boolean _isExecuteConcurrentReindex() {
 		if (FeatureFlagManagerUtil.isEnabled("LPS-177664") &&
 			(_concurrentReindexManager != null) && (_executionMode != null) &&
 			_executionMode.equals("concurrent") &&
