@@ -101,6 +101,18 @@ public class SearchEngineInitializer implements Runnable {
 		}
 	}
 
+	private boolean _isExecuteConcurrentReindex() {
+		if (FeatureFlagManagerUtil.isEnabled("LPS-177664") &&
+			(_concurrentReindexManager != null) && (_executionMode != null) &&
+			_executionMode.equals("concurrent") &&
+			(_companyId != CompanyConstants.SYSTEM)) {
+
+			return true;
+		}
+
+		return false;
+	}
+
 	private void _reindex(int delay) {
 		if (IndexWriterHelperUtil.isIndexReadOnly()) {
 			return;
@@ -223,18 +235,6 @@ public class SearchEngineInitializer implements Runnable {
 		}
 
 		_finished = true;
-	}
-
-	private boolean _isExecuteConcurrentReindex() {
-		if (FeatureFlagManagerUtil.isEnabled("LPS-177664") &&
-			(_concurrentReindexManager != null) && (_executionMode != null) &&
-			_executionMode.equals("concurrent") &&
-			(_companyId != CompanyConstants.SYSTEM)) {
-
-			return true;
-		}
-
-		return false;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
