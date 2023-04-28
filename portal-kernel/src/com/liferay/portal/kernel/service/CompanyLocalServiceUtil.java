@@ -664,13 +664,6 @@ public class CompanyLocalServiceUtil {
 		getService().updateDisplayGroupNames(companyId);
 	}
 
-	/**
-	 * Updates the name of the company's next search index.
-	 *
-	 * @param companyId the primary key of the company
-	 * @param indexNameNext the name of the company's next search index
-	 * @return the company with the primary key
-	 */
 	public static Company updateIndexNameNext(
 			long companyId, String indexNameNext)
 		throws PortalException {
@@ -678,14 +671,6 @@ public class CompanyLocalServiceUtil {
 		return getService().updateIndexNameNext(companyId, indexNameNext);
 	}
 
-	/**
-	 * Updates the names of the company's current and next search indexes.
-	 *
-	 * @param companyId the primary key of the company
-	 * @param indexNameCurrent the name of the company's current search index
-	 * @param indexNameNext the name of the company's next search index
-	 * @return the company with the primary key
-	 */
 	public static Company updateIndexNames(
 			long companyId, String indexNameCurrent, String indexNameNext)
 		throws PortalException {

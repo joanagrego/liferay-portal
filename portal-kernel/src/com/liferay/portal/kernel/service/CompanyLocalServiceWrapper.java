@@ -752,13 +752,6 @@ public class CompanyLocalServiceWrapper
 		_companyLocalService.updateDisplayGroupNames(companyId);
 	}
 
-	/**
-	 * Updates the name of the company's next search index.
-	 *
-	 * @param companyId the primary key of the company
-	 * @param indexNameNext the name of the company's next search index
-	 * @return the company with the primary key
-	 */
 	@Override
 	public com.liferay.portal.kernel.model.Company updateIndexNameNext(
 			long companyId, java.lang.String indexNameNext)
@@ -768,14 +761,6 @@ public class CompanyLocalServiceWrapper
 			companyId, indexNameNext);
 	}
 
-	/**
-	 * Updates the names of the company's current and next search indexes.
-	 *
-	 * @param companyId the primary key of the company
-	 * @param indexNameCurrent the name of the company's current search index
-	 * @param indexNameNext the name of the company's next search index
-	 * @return the company with the primary key
-	 */
 	@Override
 	public com.liferay.portal.kernel.model.Company updateIndexNames(
 			long companyId, java.lang.String indexNameCurrent,
