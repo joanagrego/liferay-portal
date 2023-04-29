@@ -21,7 +21,6 @@ export default function EmptyPlaceholder() {
 	return (
 		<div className="c-mb-0 c-p-4 empty-contributors rounded">
 			<ClayEmptyState
-				className=""
 				description={Liferay.Language.get('empty-conditions-message')}
 				imgSrc={`${themeDisplay.getPathThemeImages()}/states/empty_state.gif`}
 				title={sub(Liferay.Language.get('no-x-yet'), [

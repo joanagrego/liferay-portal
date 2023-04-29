@@ -29,7 +29,7 @@ export default function CriteriaSidebar({
 	return (
 		<div
 			aria-label={Liferay.Language.get('segments-contributors-panel')}
-			className="criteria-sidebar-root d-flex position-absolute "
+			className="criteria-sidebar-root d-flex position-absolute"
 			role="tabpanel"
 			tabIndex={-1}
 		>

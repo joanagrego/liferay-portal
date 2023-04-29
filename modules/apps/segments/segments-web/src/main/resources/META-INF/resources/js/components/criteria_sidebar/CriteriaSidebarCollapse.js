@@ -101,15 +101,13 @@ const CriteriaSidebarCollapse = ({
 					? filterProperties(properties, searchValue)
 					: properties;
 
-				const activeClasses = classNames({
-					active,
-				});
-
 				return (
 					<li
 						className={classNames(
 							`cursor-pointer d-flex flex-column sidebar-collapse-item sidebar-collapse-${propertyGroup.propertyKey}`,
-							activeClasses
+							{
+								active,
+							}
 						)}
 						key={key}
 					>
@@ -130,7 +128,9 @@ const CriteriaSidebarCollapse = ({
 
 							<span>
 								<ClayIcon
-									className={activeClasses}
+									className={classNames({
+										active,
+									})}
 									symbol="angle-right"
 								/>
 							</span>
