@@ -104,7 +104,7 @@ const CriteriaSidebarCollapse = ({
 				return (
 					<li
 						className={classNames(
-							`cursor-pointer d-flex flex-column sidebar-collapse-item sidebar-collapse-${propertyGroup.propertyKey}`,
+							`d-flex flex-column sidebar-collapse-item sidebar-collapse-${propertyGroup.propertyKey}`,
 							{
 								active,
 							}
