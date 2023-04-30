@@ -42,17 +42,6 @@ public class CTProcessModelPreFilterContributor
 		BooleanFilter booleanFilter, ModelSearchSettings modelSearchSettings,
 		SearchContext searchContext) {
 
-		int[] statuses = GetterUtil.getIntegerValues(
-			searchContext.getAttribute("statuses"));
-
-		if (ArrayUtil.isNotEmpty(statuses)) {
-			TermsFilter termsFilter = new TermsFilter("status");
-
-			termsFilter.addValues(ArrayUtil.toStringArray(statuses));
-
-			booleanFilter.add(termsFilter, BooleanClauseOccur.MUST);
-		}
-
 		int type = GetterUtil.getInteger(
 			searchContext.getAttribute(Field.TYPE),
 			CTConstants.CT_PROCESS_PUBLISH);
@@ -66,6 +55,17 @@ public class CTProcessModelPreFilterContributor
 
 		if (userId > 0) {
 			booleanFilter.addRequiredTerm(Field.USER_ID, userId);
+		}
+
+		int[] statuses = GetterUtil.getIntegerValues(
+			searchContext.getAttribute("statuses"));
+
+		if (ArrayUtil.isNotEmpty(statuses)) {
+			TermsFilter termsFilter = new TermsFilter("status");
+
+			termsFilter.addValues(ArrayUtil.toStringArray(statuses));
+
+			booleanFilter.add(termsFilter, BooleanClauseOccur.MUST);
 		}
 	}
 
