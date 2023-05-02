@@ -62,8 +62,7 @@ public class EncryptedObjectFieldBusinessType
 
 	@Override
 	public String getDescription(Locale locale) {
-		return _language.get(
-			locale, "store-content-with-text-in-encrypted-form");
+		return _language.get(locale, "store-content-as-encrypted-text");
 	}
 
 	@Override
