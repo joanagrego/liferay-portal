@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function clone_repository {
-	eval `ssh-agent -s`
+	eval $(ssh-agent -s)
 
 	echo -e "-----BEGIN OPENSSH PRIVATE KEY-----\n${LIFERAY_LEARN_ETC_CRON_GITHUB_DEPLOY_KEY}\n-----END OPENSSH PRIVATE KEY-----"| ssh-add -
 
