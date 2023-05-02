@@ -68,6 +68,8 @@ public class ActivityGroupController extends BaseFaroController {
 				FaroParam<List<OrderByField>> orderByFieldsFaroParam)
 		throws Exception {
 
+		List<ActivityGroupDisplay> activityGroupDisplays = new ArrayList<>();
+
 		Results<ActivityGroup> results = contactsEngineClient.getActivityGroups(
 			faroProjectLocalService.getFaroProjectByGroupId(groupId), channelId,
 			contactsEntityId, contactsHelper.getOwnerType(contactsEntityType),
@@ -75,8 +77,6 @@ public class ActivityGroupController extends BaseFaroController {
 			cur, delta, orderByFieldsFaroParam.getValue());
 
 		List<ActivityGroup> activityGroups = results.getItems();
-
-		List<ActivityGroupDisplay> activityGroupDisplays = new ArrayList<>();
 
 		for (ActivityGroup activityGroup : activityGroups) {
 			ActivityGroupDisplay activityGroupDisplay =
