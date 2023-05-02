@@ -25,7 +25,6 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.background.task.model.BackgroundTask;
 import com.liferay.portal.background.task.service.BackgroundTaskLocalService;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskExecutor;
-import com.liferay.portal.kernel.backgroundtask.BackgroundTaskExecutorRegistry;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskResult;
 import com.liferay.portal.kernel.backgroundtask.constants.BackgroundTaskConstants;
 import com.liferay.portal.kernel.model.User;
@@ -34,6 +33,7 @@ import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
+import com.liferay.portal.kernel.util.HashMapDictionaryBuilder;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.search.model.uid.UIDFactory;
 import com.liferay.portal.search.searcher.SearchRequestBuilder;
@@ -57,6 +57,11 @@ import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceRegistration;
 
 /**
  * @author Pei-Jung Lan
@@ -116,8 +121,17 @@ public class CTProcessSearcherTest {
 		Class<?> backgroundTaskExecutorClass =
 			backgroundTaskExecutor.getClass();
 
-		_backgroundTaskExecutorRegistry.registerBackgroundTaskExecutor(
-			backgroundTaskExecutorClass.getName(), backgroundTaskExecutor);
+		Bundle bundle = FrameworkUtil.getBundle(CTProcessSearcherTest.class);
+
+		BundleContext bundleContext = bundle.getBundleContext();
+
+		ServiceRegistration<BackgroundTaskExecutor> serviceRegistration =
+			bundleContext.registerService(
+				BackgroundTaskExecutor.class, backgroundTaskExecutor,
+				HashMapDictionaryBuilder.<String, Object>put(
+					"background.task.executor.class.name",
+					backgroundTaskExecutorClass.getName()
+				).build());
 
 		try {
 			CTCollection ctCollection = _addCTCollection();
@@ -140,8 +154,7 @@ public class CTProcessSearcherTest {
 				_byKeywords(ctCollection.getName()));
 		}
 		finally {
-			_backgroundTaskExecutorRegistry.unregisterBackgroundTaskExecutor(
-				backgroundTaskExecutorClass.getName());
+			serviceRegistration.unregister();
 		}
 	}
 
@@ -256,9 +269,6 @@ public class CTProcessSearcherTest {
 
 		return Arrays.asList(uids);
 	}
-
-	@Inject
-	private BackgroundTaskExecutorRegistry _backgroundTaskExecutorRegistry;
 
 	@Inject
 	private BackgroundTaskLocalService _backgroundTaskLocalService;
