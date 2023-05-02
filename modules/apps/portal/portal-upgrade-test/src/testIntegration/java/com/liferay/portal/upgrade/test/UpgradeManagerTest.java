@@ -68,7 +68,6 @@ public class UpgradeManagerTest {
 
 		String originalResult = ReflectionTestUtil.getFieldValue(
 			_upgradeRecorder, "_result");
-
 		String originalType = ReflectionTestUtil.getFieldValue(
 			_upgradeRecorder, "_type");
 
