@@ -1,10 +1,10 @@
 [
 	{
-		"externalReferenceCode": "MARKETPLACE_OPTION_TRIAL",
+		"ddmFormFieldTypeName": "radio",
 		"description": "Specifies if a trial exists for a given app or solution submission.",
+		"externalReferenceCode": "MARKETPLACE_OPTION_TRIAL",
 		"facetable": true,
 		"fieldType": "radio",
-		"ddmFormFieldTypeName": "radio",
 		"key": "trial",
 		"name": "Trial",
 		"required": true,
@@ -25,10 +25,10 @@
 		]
 	},
 	{
-		"externalReferenceCode": "MARKETPLACE_OPTION_DXP_USAGE",
-		"description": "Specifies if a acquision of an app.",
-		"facetable": false,
 		"ddmFormFieldTypeName": "radio",
+		"description": "Specifies if a acquision of an app.",
+		"externalReferenceCode": "MARKETPLACE_OPTION_DXP_USAGE",
+		"facetable": false,
 		"key": "dxp-license-usage-type",
 		"name": "DXP License Usage Type",
 		"required": true,
@@ -55,11 +55,11 @@
 		]
 	},
 	{
-		"externalReferenceCode": "MARKETPLACE_OPTION_DXP_SUPPORT",
+		"ddmFormFieldTypeName": "radio",
 		"description": "Specifies if a acquision of an app.",
+		"externalReferenceCode": "MARKETPLACE_OPTION_DXP_SUPPORT",
 		"facetable": false,
 		"fieldType": "radio",
-		"ddmFormFieldTypeName": "radio",
 		"key": "dxp-license-support",
 		"name": "DXP License Support",
 		"required": false,

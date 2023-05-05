@@ -1,13 +1,17 @@
 [
 	{
-		"actionIds": ["VIEW"],
+		"actionIds": [
+			"VIEW"
+		],
 		"primKey": "0",
 		"resourceName": "com.liferay.commerce.product.model.CommerceChannel",
 		"roleName": "User",
 		"scope": "1"
 	},
 	{
-		"actionIds": ["VIEW"],
+		"actionIds": [
+			"VIEW"
+		],
 		"primKey": "0",
 		"resourceName": "com.liferay.expando.kernel.model.ExpandoColumn",
 		"roleName": "User",

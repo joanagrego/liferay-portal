@@ -1,6 +1,8 @@
 [
 	{
-		"actionIds": ["VIEW"],
+		"actionIds": [
+			"VIEW"
+		],
 		"roleName": "User"
 	}
 ]

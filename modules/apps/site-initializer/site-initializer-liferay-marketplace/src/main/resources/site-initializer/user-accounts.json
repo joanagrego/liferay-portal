@@ -6,14 +6,14 @@
 			}
 		],
 		"alternateName": "jane.acme",
-		"givenName": "Jane",
-		"familyName": "Acme",
-		"emailAddress": "j@acme.com",
 		"birthDate": "1975-01-01T00:00:00.000+00:00",
+		"emailAddress": "j@acme.com",
+		"externalReferenceCode": "MP1",
+		"familyName": "Acme",
+		"givenName": "Jane",
 		"jobTitle": "Owner",
 		"name": "Jane Acme",
-		"password": "mp4all",
-		"externalReferenceCode": "MP1"
+		"password": "mp4all"
 	},
 	{
 		"accountBriefs": [
@@ -22,14 +22,14 @@
 			}
 		],
 		"alternateName": "steven.acme",
-		"givenName": "Steven",
-		"familyName": "Acme",
-		"emailAddress": "s@acme.com",
 		"birthDate": "1979-01-01T00:00:00.000+00:00",
+		"emailAddress": "s@acme.com",
+		"externalReferenceCode": "MP2",
+		"familyName": "Acme",
+		"givenName": "Steven",
 		"jobTitle": "Co-owner",
 		"name": "Steven Acme",
-		"password": "mp4all",
-		"externalReferenceCode": "MP2"
+		"password": "mp4all"
 	},
 	{
 		"accountBriefs": [
@@ -38,14 +38,14 @@
 			}
 		],
 		"alternateName": "john.developer",
-		"givenName": "John",
-		"familyName": "developer",
-		"emailAddress": "john.developer@mailinator.com",
 		"birthDate": "1999-12-18T00:00:00.000+00:00",
+		"emailAddress": "john.developer@mailinator.com",
+		"externalReferenceCode": "MP3",
+		"familyName": "developer",
+		"givenName": "John",
 		"jobTitle": "Acme developer",
 		"name": "Scott developer",
-		"password": "mp4all",
-		"externalReferenceCode": "MP3"
+		"password": "mp4all"
 	},
 	{
 		"accountBriefs": [
@@ -54,14 +54,14 @@
 			}
 		],
 		"alternateName": "marie.developer",
-		"givenName": "Marie",
-		"familyName": "developer",
-		"emailAddress": "marie.developer@mailinator.com",
 		"birthDate": "1983-04-01T00:00:00.000+00:00",
+		"emailAddress": "marie.developer@mailinator.com",
+		"externalReferenceCode": "MP4",
+		"familyName": "developer",
+		"givenName": "Marie",
 		"jobTitle": "Acme developer",
 		"name": "Marie developer",
-		"password": "mp4all",
-		"externalReferenceCode": "MP4"
+		"password": "mp4all"
 	},
 	{
 		"accountBriefs": [
@@ -70,14 +70,14 @@
 			}
 		],
 		"alternateName": "ryan.administrator",
-		"givenName": "Ryan",
-		"familyName": "administrator",
-		"emailAddress": "ryan.administrator@mailinator.com",
 		"birthDate": "1977-06-29T00:00:00.000+00:00",
+		"emailAddress": "ryan.administrator@mailinator.com",
+		"externalReferenceCode": "MP5",
+		"familyName": "administrator",
+		"givenName": "Ryan",
 		"jobTitle": "Acme Administrator",
 		"name": "Ryan Administrator",
-		"password": "mp4all",
-		"externalReferenceCode": "MP5"
+		"password": "mp4all"
 	},
 	{
 		"accountBriefs": [
@@ -86,13 +86,13 @@
 			}
 		],
 		"alternateName": "clark.customer",
-		"givenName": "Clark",
-		"familyName": "Customer",
-		"emailAddress": "clark.customer@mailinator.com",
 		"birthDate": "1996-05-31T00:00:00.000+00:00",
+		"emailAddress": "clark.customer@mailinator.com",
+		"externalReferenceCode": "MP6",
+		"familyName": "Customer",
+		"givenName": "Clark",
 		"jobTitle": "Acme Customer",
 		"name": "Clark Customer",
-		"password": "mp4all",
-		"externalReferenceCode": "MP6"
+		"password": "mp4all"
 	}
 ]
