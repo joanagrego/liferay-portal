@@ -151,8 +151,8 @@ export async function callRolesApi(
 
 export async function addAdditionalInfo(
   acceptInviteStatus: boolean,
+  accountName: string,
   r_userToUserAddInfo_userId: number,
-  publisherName: string,
   publisherId: number,
   emailOfMember: string,
   mothersName: string,
@@ -163,9 +163,9 @@ export async function addAdditionalInfo(
 ) {
   const additionalInfoBody = {
     acceptInviteStatus: acceptInviteStatus,
+    accountName: accountName,
     r_userToUserAddInfo_userId: r_userToUserAddInfo_userId,
     inviteURL: inviteURL,
-    publisherName: publisherName,
     r_accountEntryToUserAdditionalInfo_accountEntryId: publisherId,
     emailOfMember: emailOfMember,
     mothersName: mothersName,
