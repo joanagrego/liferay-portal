@@ -46,6 +46,7 @@ import {
 
 import './PurchasedAppsDashboardPage.scss';
 import {MembersPage} from '../MembersPage/MembersPage';
+import NavSegment from './NavSliderComponent';
 
 export interface PurchasedAppProps {
 	name: string;
@@ -387,6 +388,23 @@ export function PurchasedAppsDashboardPage() {
 		makeFetch();
 	}, [selectedAccount, selectedNavigationItem]);
 
+	const [selectedItemIndex, setSelectedItemIndex] = useState(0);
+
+	const accountSubscriptionGroups = [
+		{externalReferenceCode: 'CLOUDAPP', name: 'Cloud Apps'},
+		{externalReferenceCode: 'DXPAPP', name: 'DXP Apps'},
+	];
+
+	const getItems = () =>
+		accountSubscriptionGroups?.map((accountSubscriptionGroup) => ({
+			key: accountSubscriptionGroup.externalReferenceCode,
+			label: accountSubscriptionGroup.name,
+		}));
+
+	const handleCloudTable = (index: number) => {
+		return setSelectedItemIndex(index);
+	};
+
 	return (
 		<div className="purchased-apps-dashboard-page-container">
 			<DashboardNavigation
@@ -415,6 +433,12 @@ export function PurchasedAppsDashboardPage() {
 					dashboardNavigationItems={dashboardNavigationItems}
 					messages={appMessages}
 				>
+					<NavSegment
+						items={getItems()}
+						onSelect={(index: number) => handleCloudTable(index)}
+						selectedIndex={selectedItemIndex}
+					/>
+
 					<DashboardTable<PurchasedAppProps>
 						emptyStateMessage={appMessages.emptyStateMessage}
 						icon={appsIcon}

@@ -1,0 +1,17 @@
+.mkt-nav-item {
+	border-radius: 23px;
+}
+
+.mkt-nav-link {
+	&.active {
+		background-color: white !important;
+		border: 1px solid var(--color-brand-primary) !important;
+		border-radius: 20px !important;
+		color: blue !important;
+	}
+
+	&.unactive {
+		background-color: white !important;
+		color: blue !important;
+	}
+}
