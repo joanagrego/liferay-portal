@@ -652,27 +652,27 @@ public class Main {
 		return productResource.postProduct(product);
 	}
 
-	private Attachment _postProductIdAttachmentByBase64(
-			AttachmentBase64 attachmentBase64, long productId, long siteGroupId)
-		throws Exception {
-
-		AttachmentResource.Builder attachmentResourceBuilder =
-			AttachmentResource.builder();
-
-		URL url = new URL(_getLiferayURL(siteGroupId));
-
-		AttachmentResource attachmentResource =
-			attachmentResourceBuilder.bearerToken(
-				_getOAuthAuthorization(siteGroupId)
-			).header(
-				"User-Agent", "Application"
-			).endpoint(
-				url.getHost(), url.getPort(), url.getProtocol()
-			).build();
-
-		return attachmentResource.postProductIdAttachmentByBase64(
-			productId, attachmentBase64);
-	}
+//	private Attachment _postProductIdAttachmentByBase64(
+//			AttachmentBase64 attachmentBase64, long productId, long siteGroupId)
+//		throws Exception {
+//
+//		AttachmentResource.Builder attachmentResourceBuilder =
+//			AttachmentResource.builder();
+//
+//		URL url = new URL(_getLiferayURL(siteGroupId));
+//
+//		AttachmentResource attachmentResource =
+//			attachmentResourceBuilder.bearerToken(
+//				_getOAuthAuthorization(siteGroupId)
+//			).header(
+//				"User-Agent", "Application"
+//			).endpoint(
+//				url.getHost(), url.getPort(), url.getProtocol()
+//			).build();
+//
+//		return attachmentResource.postProductIdAttachmentByBase64(
+//			productId, attachmentBase64);
+//	}
 
 	private Attachment _postProductIdImageByBase64(
 			AttachmentBase64 attachmentBase64, long productId, long siteGroupId)
@@ -743,9 +743,8 @@ public class Main {
 
 		String filter = String.format(
 			"(categoryIds/any(x:" +
-				"(x eq '%d') or (x eq '%d') or (x eq '%d') or (x eq '%d')))",
-			_bundledCategoryId, _freeCategoryId, _paidCategoryId,
-			_solutionCategoryId);
+				"(x eq '%d') or (x eq '%d')))",
+			_bundledCategoryId, _solutionCategoryId);
 
 		Page<Product> productsPage = _getProductsPage(
 			filter, _originSiteGroupId);
@@ -849,14 +848,16 @@ public class Main {
 				String src = attachment.getSrc();
 
 				if (Validator.isNotNull(src)) {
-					src = StringUtil.replace(src, "/accounts/-", "/accounts/");
+					src = StringUtil.replace(src, "/accounts/", "/accounts/");
 
 					URL url = new URL(src);
 
 					URLConnection urlConnection = url.openConnection();
 
 					urlConnection.setRequestProperty(
-						"User-Agent", "Application");
+						"User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
+					urlConnection.setRequestProperty(
+							"Cookie", "JSESSIONID=" + ";" + " " + "SERVER_ID=" + "");
 
 					byte[] bytes = IOUtils.toByteArray(
 						urlConnection.getInputStream());
